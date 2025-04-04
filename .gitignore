@@ -8,6 +8,7 @@
 /var/
 /vendor/
 .env
+/migrations
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
