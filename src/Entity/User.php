@@ -33,6 +33,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    /**
+     * @var int The economical balance (MC))
+     */
+    #[ORM\Column(type: "bigint", options: ["default" => 0])]
+    private int $balance = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,6 +55,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getBalance(): int
+    {
+        return $this->balance;
+    }
+
+    public function setBalance(int $amount): static
+    {
+        $this->balance = $amount;
+        return $this;
+    }
+
+    public function getMO(): int
+    {
+        return intdiv($this->balance, 1000);
+    }
+
+    public function getMP(): int
+    {
+        return intdiv($this->balance, 10) % 100;
+    }
+
+    public function getMC(): int
+    {
+        return $this->balance % 10;
+    }
+
+    public function getFormattedBalance(): string
+    {
+        return sprintf("%d MO, %d MP, %d MC", $this->getMO(), $this->getMP(), $this->getMC());
+    }
+
 
     /**
      * A visual identifier that represents this user.
@@ -107,4 +145,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
 }
