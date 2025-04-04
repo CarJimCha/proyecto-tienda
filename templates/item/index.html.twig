@@ -14,7 +14,7 @@
                 <th>Calidad</th>
                 <th>Categoria</th>
                 <th>Peso</th>
-                <th>actions</th>
+                <th>Botones</th>
             </tr>
         </thead>
         <tbody>
@@ -27,8 +27,9 @@
                 <td>{{ item.categoria }}</td>
                 <td>{{ item.peso }}</td>
                 <td>
-                    <a href="{{ path('app_item_show', {'id': item.id}) }}">show</a>
-                    <a href="{{ path('app_item_edit', {'id': item.id}) }}">edit</a>
+                    <a href="{{ path('app_item_show', {'id': item.id}) }}">Mostrar</a>
+                    <a href="{{ path('app_item_edit', {'id': item.id}) }}">Editar</a>
+                    <a href="{{ path('app_item_delete', {'id': item.id}) }}">Borrar</a>
                 </td>
             </tr>
         {% else %}
