@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Calidad</th>
@@ -20,7 +20,7 @@
         <tbody>
         {% for item in items %}
             <tr>
-                <td>{{ item.id }}</td>
+
                 <td>{{ item.nombre }}</td>
                 <td>{{ item.precio }}</td>
                 <td>{{ item.calidad }}</td>
@@ -40,5 +40,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_item_new') }}">Create new</a>
+    <a href="{{ path('app_item_new') }}">Crear nuevo item</a>
+
+    <br><br>
+    <a href="{{ path('index') }}" class="btn btn-primary">Página de inicio</a>
 {% endblock %}

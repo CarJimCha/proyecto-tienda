@@ -1,3 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tienda de rol{% endblock %}
+
+{% block body %}
+
 <h1>Bienvenido</h1>
 
 <p>Explora los artículos disponibles.</p>
@@ -7,3 +13,5 @@
 <br>
 
 <a href="{{ path('app_item_index') }}" class="btn btn-primary">A los items</a>
+
+{% endblock %}
