@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Item index{% endblock %}
+{% block title %}Lista de Items{% endblock %}
 
 {% block body %}
-    <h1>Item index</h1>
+    <h1>Lista de Items</h1>
 
     <table class="table">
         <thead>
             <tr>
-                
+
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Calidad</th>
@@ -34,7 +34,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">No hay registro de items</td>
             </tr>
         {% endfor %}
         </tbody>
