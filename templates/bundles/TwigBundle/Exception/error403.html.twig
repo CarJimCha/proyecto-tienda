@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceso denegado{% endblock %}
+
+{% block body %}
+    <h1>Acceso denegado</h1>
+    <p>No tienes permisos para acceder a esta página.</p>
+    <a href="{{ path('index') }}">Volver al inicio</a>
+{% endblock %}

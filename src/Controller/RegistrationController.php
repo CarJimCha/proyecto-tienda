@@ -30,6 +30,8 @@ class RegistrationController extends AbstractController
             $balance = $form->get('balance')->getData();
             $user->setBalance($balance ?? 0);
 
+            $user->setRoles(['ROLE_USER']);
+
             $entityManager->persist($user);
             $entityManager->flush();
 
