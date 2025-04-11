@@ -106,6 +106,43 @@ class Item
         return $this;
     }
 
+    public function getMO(): int
+    {
+        return intdiv($this->precio, 1000);
+    }
+
+    public function getMP(): int
+    {
+        return intdiv($this->precio, 10) % 100;
+    }
+
+    public function getMC(): int
+    {
+        return $this->precio % 10;
+    }
+
+    public function getFormattedPrecio(): string
+    {
+        $mo = $this->getMO();
+        $mp = $this->getMP();
+        $mc = $this->getMC();
+
+        $precio = [];
+
+        if ($mo > 0) {
+            $precio[] = "{$mo} MO";
+        }
+        if ($mp > 0) {
+            $precio[] = "{$mp} MP";
+        }
+        if ($mc > 0) {
+            $precio[] = "{$mc} MC";
+        }
+
+        return implode(", ", $precio);
+    }
+
+
     /**
      * @return Collection<int, Transaction>
      */

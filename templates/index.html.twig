@@ -16,10 +16,12 @@
 
     <br>
 
-    <a href="{{ path('app_item_index') }}" class="btn btn-primary">CRUD de items</a>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_compra') }}" class="btn btn-primary">Compra de items</a>
+    {% endif %}
 
-    <br>
-
-    <a href="{{ path('app_compra') }}" class="btn btn-primary">Compra de items</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <br><a href="{{ path('app_item_index') }}" class="btn btn-primary">CRUD de items</a>
+    {% endif %}
 
 {% endblock %}

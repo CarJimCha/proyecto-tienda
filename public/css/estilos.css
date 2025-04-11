@@ -1,0 +1,22 @@
+.btn-compra {
+    display: inline-block;
+    padding: 10px 20px;
+
+    text-align: center;
+    text-decoration: none;
+    background-color: deepskyblue;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-compra:hover {
+    background-color: blue;
+    color: white;
+}
+
+.btn-compra:focus {
+    outline: none;
+}

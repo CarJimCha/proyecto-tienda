@@ -97,8 +97,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getFormattedBalance(): string
     {
-        return sprintf("%d MO, %d MP, %d MC", $this->getMO(), $this->getMP(), $this->getMC());
+        $mo = $this->getMO();
+        $mp = $this->getMP();
+        $mc = $this->getMC();
+
+        $balance = [];
+
+        if ($mo > 0) {
+            $balance[] = "{$mo} MO";
+        }
+        if ($mp > 0) {
+            $balance[] = "{$mp} MP";
+        }
+        if ($mc > 0) {
+            $balance[] = "{$mc} MC";
+        }
+
+        return implode(", ", $balance);
     }
+
 
 
     /**

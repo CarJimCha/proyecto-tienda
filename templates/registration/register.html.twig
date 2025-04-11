@@ -5,15 +5,19 @@
 {% block body %}
     <h1>Registro</h1>
 
-    {{ form_errors(registrationForm) }}
+    <div class="container my-4">
+        <!-- { { form(registrationForm) }} -->
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.characterName,  { label: 'Nombre del personaje'}) }}
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.characterName,  { label: 'Nombre'}) }}
         {{ form_row(registrationForm.plainPassword, { label: 'Contraseña'}) }}
         {{ form_row(registrationForm.balance, {label: 'Dinero inicial'}) }}
 
         <button type="submit" class="btn">Registrarse</button>
-    {{ form_end(registrationForm) }}
+        {{ form_end(registrationForm) }}
+    </div>
 
     <br>
     <a href="{{ path('index') }}" class="btn btn-primary">Página de inicio</a>
