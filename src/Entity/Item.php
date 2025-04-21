@@ -33,7 +33,7 @@ class Item
     /**
      * @var Collection<int, Transaction>
      */
-    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'item_id')]
+    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'item')]
     private Collection $transaction;
 
     public function __construct()
@@ -155,7 +155,7 @@ class Item
     {
         if (!$this->transaction->contains($transaction)) {
             $this->transaction->add($transaction);
-            $transaction->setItemId($this);
+            $transaction->setItem($this);
         }
 
         return $this;
@@ -165,8 +165,8 @@ class Item
     {
         if ($this->transaction->removeElement($transaction)) {
             // set the owning side to null (unless already changed)
-            if ($transaction->getItemId() === $this) {
-                $transaction->setItemId(null);
+            if ($transaction->getItem() === $this) {
+                $transaction->setItem(null);
             }
         }
 

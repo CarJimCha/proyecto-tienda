@@ -25,11 +25,11 @@ class Transaction
 
     #[ORM\ManyToOne(inversedBy: 'transaction')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user_id = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'transaction')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Item $item_id = null;
+    private ?Item $item = null;
 
     public function getId(): ?int
     {
@@ -72,26 +72,26 @@ class Transaction
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): static
+    public function setUser(?User $user): static
     {
-        $this->user_id = $user_id;
+        $this->user= $user;
 
         return $this;
     }
 
-    public function getItemId(): ?Item
+    public function getItem(): ?Item
     {
-        return $this->item_id;
+        return $this->item;
     }
 
-    public function setItemId(?Item $item_id): static
+    public function setItem(?Item $item): static
     {
-        $this->item_id = $item_id;
+        $this->item = $item;
 
         return $this;
     }
