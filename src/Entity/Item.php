@@ -22,12 +22,6 @@ class Item
     private ?int $precio = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $calidad = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $categoria = null;
-
-    #[ORM\Column(nullable: true)]
     private ?float $peso = null;
 
     /**
@@ -36,9 +30,19 @@ class Item
     #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'item')]
     private Collection $transaction;
 
+    #[ORM\ManyToOne(inversedBy: 'items')]
+    private ?Categoria $categoria = null;
+
+    /**
+     * @var Collection<int, Calidad>
+     */
+    #[ORM\ManyToMany(targetEntity: Calidad::class, inversedBy: 'items')]
+    private Collection $calidad;
+
     public function __construct()
     {
         $this->transaction = new ArrayCollection();
+        $this->calidad = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,30 +70,6 @@ class Item
     public function setPrecio(?int $precio): static
     {
         $this->precio = $precio;
-
-        return $this;
-    }
-
-    public function getCalidad(): ?int
-    {
-        return $this->calidad;
-    }
-
-    public function setCalidad(?int $calidad): static
-    {
-        $this->calidad = $calidad;
-
-        return $this;
-    }
-
-    public function getCategoria(): ?string
-    {
-        return $this->categoria;
-    }
-
-    public function setCategoria(string $categoria): static
-    {
-        $this->categoria = $categoria;
 
         return $this;
     }
@@ -169,6 +149,42 @@ class Item
                 $transaction->setItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategoria(): ?Categoria
+    {
+        return $this->categoria;
+    }
+
+    public function setCategoria(?Categoria $categoria): static
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Calidad>
+     */
+    public function getCalidad(): Collection
+    {
+        return $this->calidad;
+    }
+
+    public function addCalidad(Calidad $calidad): static
+    {
+        if (!$this->calidad->contains($calidad)) {
+            $this->calidad->add($calidad);
+        }
+
+        return $this;
+    }
+
+    public function removeCalidad(Calidad $calidad): static
+    {
+        $this->calidad->removeElement($calidad);
 
         return $this;
     }

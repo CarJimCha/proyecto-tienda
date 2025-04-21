@@ -31,6 +31,12 @@ class Transaction
     #[ORM\JoinColumn(nullable: false)]
     private ?Item $item = null;
 
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    private ?Categoria $categoria = null;
+
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    private ?Calidad $calidad = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -92,6 +98,30 @@ class Transaction
     public function setItem(?Item $item): static
     {
         $this->item = $item;
+
+        return $this;
+    }
+
+    public function getCategoria(): ?Categoria
+    {
+        return $this->categoria;
+    }
+
+    public function setCategoria(?Categoria $categoria): static
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    public function getCalidad(): ?Calidad
+    {
+        return $this->calidad;
+    }
+
+    public function setCalidad(?Calidad $calidad): static
+    {
+        $this->calidad = $calidad;
 
         return $this;
     }

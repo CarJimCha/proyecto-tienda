@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CalidadRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,24 @@ class Calidad
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
     private ?string $multiplicador_precio_combate = null;
+
+    /**
+     * @var Collection<int, Item>
+     */
+    #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'calidad')]
+    private Collection $items;
+
+    /**
+     * @var Collection<int, Transaction>
+     */
+    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'calidad')]
+    private Collection $transactions;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,5 +102,62 @@ class Calidad
     public function __toString(): string
     {
         return $this->nombre;
+    }
+
+    /**
+     * @return Collection<int, Item>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): static
+    {
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->addCalidad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): static
+    {
+        if ($this->items->removeElement($item)) {
+            $item->removeCalidad($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): static
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions->add($transaction);
+            $transaction->setCalidad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): static
+    {
+        if ($this->transactions->removeElement($transaction)) {
+            // set the owning side to null (unless already changed)
+            if ($transaction->getCalidad() === $this) {
+                $transaction->setCalidad(null);
+            }
+        }
+
+        return $this;
     }
 }
