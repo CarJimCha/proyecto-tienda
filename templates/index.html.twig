@@ -4,7 +4,9 @@
 
 {% block body %}
 
-    <h1>Bienvenido</h1>
+    <h1>Gestior de Inventario de Rol</h1>
+
+    <h2>¡Bienvenido!</h2>
 
     <p>Explora los artículos disponibles.</p>
 
@@ -17,11 +19,17 @@
     <br>
 
     {% if is_granted('ROLE_USER') %}
-        <a href="{{ path('app_compra') }}" class="btn btn-primary">Compra de items</a>
+        <a href="{{ path('app_compra') }}" class="btn btn-primary">Compra de Items</a>
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
-        <br><a href="{{ path('app_item_index') }}" class="btn btn-primary">CRUD de items</a>
+        <br>
+
+        <a href="{{ path('app_item_index') }}" class="btn btn-primary">CRUD de Items</a>
+
+        <br>
+
+        <a href="{{ path('app_user_index') }}" class="btn btn-primary">CRUD de Usuarios</a>
     {% endif %}
 
 {% endblock %}
