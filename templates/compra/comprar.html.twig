@@ -12,6 +12,7 @@
     <div class="mb-3">
         <h2>{{ item.nombre }}</h2>
         <p><strong>Categoría:</strong> {{ item.categoria }}</p>
+
         <p><strong>Precio:</strong> {{ item.getFormattedPrecio }}.</p>
     </div>
 
@@ -21,11 +22,7 @@
             <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="form-control">
         </div>
         <br>
-        <div class="mb-3">
-            <label for="multiplicador" class="form-label">Multiplicador (%):</label>
-            <input type="number" id="multiplicador" name="multiplicador" value="100" min="0" step="5" class="form-control">
-        </div>
-        <br>
+
         <input type="hidden" name="item_id" value="{{ item.id }}">
 
         <button type="submit" class="btn btn-success">Comprar</button>

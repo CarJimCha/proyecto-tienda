@@ -7,5 +7,5 @@ enum CalidadEnum: string
     case MEDIOCRE = 'Mediocre';
     case NORMAL = 'Normal';
     case BUENA = 'Buena';
-    case LUJOSA = 'Lujosa';
+    case EXCELENTE = 'Excelente';
 }

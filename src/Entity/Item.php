@@ -33,16 +33,9 @@ class Item
     #[ORM\ManyToOne(inversedBy: 'items')]
     private ?Categoria $categoria = null;
 
-    /**
-     * @var Collection<int, Calidad>
-     */
-    #[ORM\ManyToMany(targetEntity: Calidad::class, inversedBy: 'items')]
-    private Collection $calidad;
-
     public function __construct()
     {
         $this->transaction = new ArrayCollection();
-        $this->calidad = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,27 +158,4 @@ class Item
         return $this;
     }
 
-    /**
-     * @return Collection<int, Calidad>
-     */
-    public function getCalidad(): Collection
-    {
-        return $this->calidad;
-    }
-
-    public function addCalidad(Calidad $calidad): static
-    {
-        if (!$this->calidad->contains($calidad)) {
-            $this->calidad->add($calidad);
-        }
-
-        return $this;
-    }
-
-    public function removeCalidad(Calidad $calidad): static
-    {
-        $this->calidad->removeElement($calidad);
-
-        return $this;
-    }
 }

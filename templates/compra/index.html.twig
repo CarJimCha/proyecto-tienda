@@ -18,7 +18,7 @@
             <tr>
                 <th style="border: 1px solid black; padding: 8px;">Nombre</th>
                 <th style="border: 1px solid black; padding: 8px;">Categoría</th>
-                <th style="border: 1px solid black; padding: 8px;">Calidad</th>
+
                 <th style="border: 1px solid black; padding: 8px;">Precio</th>
                 <th style="border: 1px solid black; padding: 8px;">Comprar</th>
             </tr>
@@ -28,21 +28,7 @@
                 <tr>
                     <td style="border: 1px solid black; padding: 8px;">{{ item.nombre }}</td>
                     <td style="border: 1px solid black; padding: 8px;">{{ item.categoria }}</td>
-                    <td style="border: 1px solid black; padding: 8px;">
-                        {% if item.calidad == -5 %}
-                            Mediocre (-5)
-                        {% elseif item.calidad == 0 %}
-                            Normal (0)
-                        {% elseif item.calidad == 5 %}
-                            Buena (+5)
-                        {% elseif item.calidad == 10 %}
-                            Excelente (+10)
-                        {% elseif item.calidad == 15 %}
-                            Excepcional (+15)
-                        {% elseif item.calidad == 20 %}
-                            Legendaria (+20)
-                        {% endif %}
-                    </td>
+
                     <td style="border: 1px solid black; padding: 8px;">{{ item.precio }}</td>
                     <td style="border: 1px solid black; padding: 8px;">
                         <a href="{{ path('comprar', {'id': item.id}) }}" class="btn-compra">Comprar</a>
