@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calidad{% endblock %}
+
+{% block body %}
+    <h1>Calidad</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ calidad.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ calidad.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ calidad.numero }}</td>
+            </tr>
+            <tr>
+                <th>Multiplicador_precio</th>
+                <td>{{ calidad.multiplicadorPrecio }}</td>
+            </tr>
+            <tr>
+                <th>Multiplicador_precio_combate</th>
+                <td>{{ calidad.multiplicadorPrecioCombate }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_calidad_index') }}">back to list</a>
+
+    <a href="{{ path('app_calidad_edit', {'id': calidad.id}) }}">edit</a>
+
+    {{ include('calidad/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calidad index{% endblock %}
+
+{% block body %}
+    <h1>Calidad index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Numero</th>
+                <th>Multiplicador_precio</th>
+                <th>Multiplicador_precio_combate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calidad in calidads %}
+            <tr>
+                <td>{{ calidad.id }}</td>
+                <td>{{ calidad.nombre }}</td>
+                <td>{{ calidad.numero }}</td>
+                <td>{{ calidad.multiplicadorPrecio }}</td>
+                <td>{{ calidad.multiplicadorPrecioCombate }}</td>
+                <td>
+                    <a href="{{ path('app_calidad_show', {'id': calidad.id}) }}">show</a>
+                    <a href="{{ path('app_calidad_edit', {'id': calidad.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_calidad_new') }}">Create new</a>
+{% endblock %}
