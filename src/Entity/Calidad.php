@@ -29,12 +29,6 @@ class Calidad
     private ?string $multiplicador_precio_combate = null;
 
     /**
-     * @var Collection<int, Item>
-     */
-    #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'calidad')]
-    private Collection $items;
-
-    /**
      * @var Collection<int, Transaction>
      */
     #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'calidad')]
@@ -102,33 +96,6 @@ class Calidad
     public function __toString(): string
     {
         return $this->nombre;
-    }
-
-    /**
-     * @return Collection<int, Item>
-     */
-    public function getItems(): Collection
-    {
-        return $this->items;
-    }
-
-    public function addItem(Item $item): static
-    {
-        if (!$this->items->contains($item)) {
-            $this->items->add($item);
-            $item->addCalidad($this);
-        }
-
-        return $this;
-    }
-
-    public function removeItem(Item $item): static
-    {
-        if ($this->items->removeElement($item)) {
-            $item->removeCalidad($this);
-        }
-
-        return $this;
     }
 
     /**

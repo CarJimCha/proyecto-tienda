@@ -18,11 +18,6 @@ class CalidadType extends AbstractType
             ->add('numero')
             ->add('multiplicador_precio')
             ->add('multiplicador_precio_combate')
-            ->add('items', EntityType::class, [
-                'class' => Item::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
         ;
     }
 

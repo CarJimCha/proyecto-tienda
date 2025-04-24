@@ -7,6 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 
 class UserType extends AbstractType
 {
@@ -23,7 +26,13 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'label' => 'Roles',
             ])
-            ->add('password')
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => false,
+                'first_options' => ['label' => 'Contraseña'],
+                'second_options' => ['label' => 'Repite la contraseña'],
+            ])
+
             ->add('balance')
         ;
     }
