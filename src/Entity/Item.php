@@ -6,6 +6,7 @@ use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function PHPUnit\Framework\isNull;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
 class Item
@@ -96,23 +97,29 @@ class Item
 
     public function getFormattedPrecio(): string
     {
-        $mo = $this->getMO();
-        $mp = $this->getMP();
-        $mc = $this->getMC();
+        if ($this->getPrecio() != 0)
+        {
+            $mo = $this->getMO();
+            $mc = $this->getMC();
+            $mp = $this->getMP();
 
-        $precio = [];
+            $precio = [];
 
-        if ($mo > 0) {
-            $precio[] = "{$mo} MO";
-        }
-        if ($mp > 0) {
-            $precio[] = "{$mp} MP";
-        }
-        if ($mc > 0) {
-            $precio[] = "{$mc} MC";
-        }
+            if ($mo > 0) {
+                $precio[] = "{$mo} MO";
+            }
+            if ($mp > 0) {
+                $precio[] = "{$mp} MP";
+            }
+            if ($mc > 0) {
+                $precio[] = "{$mc} MC";
+            }
 
-        return implode(", ", $precio);
+            return implode(", ", $precio);
+        }
+        else {
+            return "No Aplica";
+        }
     }
 
 

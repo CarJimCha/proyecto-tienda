@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\Calidad;
 
 class ItemType extends AbstractType
 {
@@ -16,12 +15,6 @@ class ItemType extends AbstractType
         $builder
             ->add('nombre')
             ->add('precio')
-            ->add('calidad', EntityType::class, [
-                'class' => Calidad::class,
-                'choice_label' => 'nombre',
-                'multiple' => true,
-                'expanded' => false,
-            ])
             ->add('categoria')
             ->add('peso')
         ;

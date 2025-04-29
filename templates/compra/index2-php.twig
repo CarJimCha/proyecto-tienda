@@ -1,0 +1,36 @@
+<div class="div-tabla">
+    <table class="table-tabla" style="border: 1px solid black;">
+        <thead>
+        <tr>
+            <th style="border: 1px solid black; padding: 8px;">
+                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'nombre'})) }}"
+                   class="{{ sortField == 'nombre' ? 'active' : '' }}">Nombre</a>
+            </th>
+            <th style="border: 1px solid black; padding: 8px;">
+                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'categoria'})) }}"
+                   class="{{ sortField == 'categoria' ? 'active' : '' }}">Categoría</a>
+            </th>
+            <th style="border: 1px solid black; padding: 8px;">Precio</th>
+            <th style="border: 1px solid black; padding: 8px;">Comprar</th>
+        </tr>
+        </thead>
+        <tbody class="tbody-tabla">
+        {% for item in items %}
+            <tr>
+                <td style="border: 1px solid black; padding: 8px;">{{ item.nombre }}</td>
+                <td style="border: 1px solid black; padding: 8px;">{{ item.categoria }}</td>
+                <td style="border: 1px solid black; padding: 8px;">{{ item.getFormattedPrecio }}</td>
+                <td style="border: 1px solid black; padding: 8px;">
+                    <a href="{{ path('comprar', {'id': item.id}) }}" class="btn-compra">Comprar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="4">No hay ítems disponibles.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {{ knp_pagination_render(items) }}
+    </div>
+</div>
