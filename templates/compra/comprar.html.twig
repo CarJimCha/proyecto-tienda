@@ -3,38 +3,47 @@
 {% block title %}Comprar {{ item.nombre }}{% endblock %}
 
 {% block body %}
-    <h1>Detalles de la compra</h1>
+    <h1>Comprar {{ item.nombre }}</h1>
 
-    <div class="mb-3">
-        <p>Eres {{ app.user.userIdentifier }} y tienes {{ app.user.getFormattedBalance() }}.</p>
-    </div>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
 
-    <div class="mb-3">
-        <h2>{{ item.nombre }}</h2>
-        <p><strong>Categoría:</strong> {{ item.categoria }}</p>
-        <p><strong>Precio:</strong> {{ item.getFormattedPrecio }}.</p>
-    </div>
+    <p>Eres {{ app.user.userIdentifier }} y tienes {{ app.user.getFormattedBalance() }} monedas.</p>
+    <p><strong>Precio base:</strong> {{ item.getFormattedPrecio }}</p>
+    <p><strong>Categoría:</strong> {{ item.categoria.nombre }}</p>
 
-    <form method="post" action="{{ path('app_compra') }}">
-        <div class="mb-3">
-            <label for="cantidad" class="form-label">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="form-control">
-            <label for="calidad" class="form-label">Calidad:</label>
-            <select id="calidad" name="calidad" class="form-control">
-                {% for calidad in calidades %}
-                    <option value="{{ calidad.id }}">{{ calidad.nombre }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <br>
+    {% set categoriasCombate = [
+        'Herramientas y Oficios',
+        'Arte y Decoración',
+        'Orfebrería y Joyas',
+        'Instrumentos Musicales',
+        'Panoplia Clásica',
+        'Panoplia Oriental',
+        'Panoplia Exótica'
+    ] %}
 
-        <input type="hidden" name="item_id" value="{{ item.id }}">
+    {% set usarMultiplicadorCombate = item.categoria.nombre in categoriasCombate %}
 
-        <button type="submit" class="btn btn-success">Comprar</button>
+    <form method="get" action="{{ path('comprar', {'id': item.id}) }}">
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" name="cantidad" id="cantidad" value="1" min="1" required>
+
+        <label for="calidad">Calidad:</label>
+        <select name="calidad" id="calidad" required>
+            {% for calidad in calidades %}
+                <option value="{{ calidad.id }}">
+                    {{ calidad.nombre }}
+                    (x{{ usarMultiplicadorCombate ? calidad.multiplicadorPrecioCombate : calidad.multiplicadorPrecio }})
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Comprar</button>
     </form>
 
-    <br>
-
-    <p><a href="{{ path('app_compra') }}" class="btn btn-primary">Volver al Catálogo</a></p>
-    <p><a href="{{ path('index') }}" class="btn btn-primary">Volver a Inicio</a></p>
+    <p><a href="{{ path('app_compra') }}">Volver al catálogo</a></p>
 {% endblock %}
