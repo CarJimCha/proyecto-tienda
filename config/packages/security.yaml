@@ -42,7 +42,10 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/comprar, roles: ROLE_USER }
+        - { path: ^/inventario, roles: ROLE_USER }
         - { path: ^/item, roles: ROLE_ADMIN }
+        - { path: ^/categoria, roles: ROLE_ADMIN }
+        - { path: ^/calidad, roles: ROLE_ADMIN }
         - { path: ^/user, roles: ROLE_ADMIN }
 
 when@test:

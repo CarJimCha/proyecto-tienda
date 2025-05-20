@@ -3,7 +3,23 @@
 {% block title %}Inventario{% endblock %}
 
 {% block body %}
-    <h1>Inventario de {{ app.user.characterName }}</h1>
+    <h1>Inventario</h1>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <form method="get" action="{{ path('app_inventario') }}">
+            <label for="usuario_id">Seleccionar usuario:</label>
+            <select name="usuario_id" id="usuario_id" onchange="this.form.submit()">
+                {% for u in usuarios %}
+                    <option value="{{ u.id }}" {% if usuarioSeleccionado and u.id == usuarioSeleccionado.id %}selected{% endif %}>
+                        {{ u.characterName }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+        <hr>
+    {% endif %}
+
+    <h2>Inventario de {{ usuarioSeleccionado.characterName }}</h2>
 
     <table>
         <thead>
