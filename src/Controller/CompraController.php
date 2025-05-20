@@ -61,20 +61,25 @@ class CompraController extends AbstractController
         }
 
         // Ordenación segura con switch
-        $sortField = $request->query->get('sort', 'i.nombre');
+        $sortParam = $request->query->get('sort', 'i.nombre');
 
-        switch ($sortField) {
+        switch ($sortParam) {
             case 'i.precio':
                 $queryBuilder->orderBy('i.precio', 'ASC');
+                break;
+            case 'i.precio_DESC':
+                $queryBuilder->orderBy('i.precio', 'DESC');
                 break;
             case 'c.nombre':
                 $queryBuilder->orderBy('c.nombre', 'ASC');
                 break;
             default:
                 $queryBuilder->orderBy('i.nombre', 'ASC');
-                $sortField = 'i.nombre'; // aseguramos coherencia en el render
+                $sortParam = 'i.nombre';
                 break;
         }
+
+        $sortField = $sortParam;
 
         // Paginación
         $items = $paginator->paginate(

@@ -1,0 +1,32 @@
+<header>
+    {% if app.user %}
+        <div class="user-info">
+            <span>{{ app.user.characterName }}</span>
+            {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                <span>- {{ app.user.balance|moneda_formateada }}</span>
+            {% endif %}
+        </div>
+
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{{ path('index') }}">Inicio</a></li>
+
+                {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_inventario') }}">Inventario</a></li>
+                    <li><a href="{{ path('app_compra') }}">Compra de Ítems</a></li>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_inventario') }}">Inventarios</a></li>
+                    <li><a href="{{ path('app_import_items') }}">Importar Ítems desde CSV</a></li>
+                    <li><a href="{{ path('app_item_index') }}">Administrar Ítems</a></li>
+                    <li><a href="{{ path('app_categoria_index') }}">Administrar Categorías</a></li>
+                    <li><a href="{{ path('app_calidad_index') }}">Administrar Calidades</a></li>
+                    <li><a href="{{ path('app_user_index') }}">Administrar Usuarios</a></li>
+                {% endif %}
+
+                <li><a href="{{ path('app_logout') }}">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    {% endif %}
+</header>

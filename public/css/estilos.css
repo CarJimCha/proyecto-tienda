@@ -1,7 +1,84 @@
+header {
+    position: fixed;    /* Fija el header arriba */
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;  /* Color de fondo */
+    color: white;
+    padding: 10px 20px;
+    z-index: 1000;      /* Para que quede encima */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Info de usuario alineada a la izquierda */
+.user-info {
+    font-weight: bold;
+}
+
+/* Nav */
+nav {
+    /* nada especial, flex se hace en el ul */
+}
+
+.nav-list {
+    list-style: none;
+    display: flex !important;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li {
+    /* nada especial */
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.nav-list a:hover {
+    background-color: #0056b3;
+}
+
+body {
+    padding-top: 20px;
+    text-align: center;
+    background-color: skyblue;
+}
+
+table {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;          /* Para que ocupe el espacio restante */
+    border-collapse: collapse; /* Para que las celdas compartan bordes */
+    text-align: center;  /* Centra el texto en celdas */
+}
+
+/* También centra el texto en los encabezados y celdas */
+table th, table td {
+    text-align: center;
+    padding: 8px;        /* Un poco de espacio para que quede mejor */
+}
+
+/* Opcional: añade borde para que se vea mejor */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+
 .btn-compra {
     display: inline-block;
     padding: 10px 20px;
-
     text-align: center;
     text-decoration: none;
     background-color: deepskyblue;
@@ -20,3 +97,6 @@
 .btn-compra:focus {
     outline: none;
 }
+
+
+

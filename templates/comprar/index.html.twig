@@ -18,13 +18,17 @@
         </select>
 
         <select name="sort">
-            <option value="nombre" {% if sortField == 'nombre' %}selected{% endif %}>Nombre</option>
-            <option value="precio" {% if sortField == 'precio' %}selected{% endif %}>Precio</option>
+            <option value="i.nombre"   {% if sortField == 'i.nombre'   %}selected{% endif %}>Nombre</option>
+            <option value="i.precio"   {% if sortField == 'i.precio'   %}selected{% endif %}>Precio (asc)</option>
+            <option value="i.precio_DESC"   {% if sortField == 'i.precio_DESC'   %}selected{% endif %}>Precio (desc)</option>
             <option value="c.nombre" {% if sortField == 'c.nombre' %}selected{% endif %}>Categoría</option>
         </select>
 
+
         <button type="submit">Filtrar</button>
     </form>
+
+    <br>
 
     <table>
         <thead>
