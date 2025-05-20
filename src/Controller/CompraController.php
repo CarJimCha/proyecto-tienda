@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Item;
 use App\Entity\Transaction;
+use App\Repository\CategoriaRepository;
 use App\Repository\ItemRepository;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -23,38 +24,76 @@ class CompraController extends AbstractController
 {
 
     /* TODO: Este es el controlador OG, no perder por si hay que dar marcha atrás */
-    // #[Route('/compra', name: 'app_compra')]
+    // #[Route('/comprar', name: 'app_compra')]
     /* public function index(ItemRepository $itemRepository): Response
     {
         $items = $itemRepository->findAll();
 
-        return $this->render('compra/index.html.twig', [
+        return $this->render('comprar/index.html.twig', [
             'items' => $items,
         ]);
     } */
 
-    #[Route('/compra', name: 'app_compra')]
-    public function index(Request $request, ItemRepository $itemRepository, PaginatorInterface $paginator): Response
-    {
-        // Obtener los ítems con un query builder de Doctrine
-        $queryBuilder = $itemRepository->createQueryBuilder('i');
+    #[Route('/comprar', name: 'app_compra')]
+    public function index(
+        Request $request,
+        ItemRepository $itemRepository,
+        CategoriaRepository $categoriaRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        $queryBuilder = $itemRepository->createQueryBuilder('i')
+            ->leftJoin('i.categoria', 'c')
+            ->addSelect('i', 'c');
+            // ->addSelect('c.nombre'); // Añadimos el campo de categoría necesario para la ordenación
 
-        // Obtener el campo de ordenación de la consulta
-        $sortField = $request->query->get('sort', 'nombre'); // Campo por defecto
-        $queryBuilder->orderBy('i.' . $sortField, 'ASC');
+        // Filtros
+        $nombre = $request->query->get('nombre');
+        $categoriaId = $request->query->get('categoria');
 
-        // Paginación (obtenemos los ítems paginados)
+        if ($nombre) {
+            $queryBuilder->andWhere('i.nombre LIKE :nombre')
+                ->setParameter('nombre', '%' . $nombre . '%');
+        }
+
+        if ($categoriaId) {
+            $queryBuilder->andWhere('c.id = :categoriaId')
+                ->setParameter('categoriaId', $categoriaId);
+        }
+
+        // Ordenación segura con switch
+        $sortField = $request->query->get('sort', 'i.nombre');
+
+        switch ($sortField) {
+            case 'i.precio':
+                $queryBuilder->orderBy('i.precio', 'ASC');
+                break;
+            case 'c.nombre':
+                $queryBuilder->orderBy('c.nombre', 'ASC');
+                break;
+            default:
+                $queryBuilder->orderBy('i.nombre', 'ASC');
+                $sortField = 'i.nombre'; // aseguramos coherencia en el render
+                break;
+        }
+
+        // Paginación
         $items = $paginator->paginate(
             $queryBuilder,
-            $request->query->getInt('page', 1), // Página actual
-            20 // Número de ítems por página
+            $request->query->getInt('page', 1),
+            25
         );
 
-        return $this->render('compra/index.html.twig', [
+        return $this->render('comprar/index.html.twig', [
             'items' => $items,
             'sortField' => $sortField,
+            'nombre' => $nombre,
+            'categoriaId' => $categoriaId,
+            'categorias' => $categoriaRepository->findAll(),
         ]);
     }
+
+
+
 
     // Ruta para ver los detalles del ítem a comprar
     #[Route('/comprar/{id}', name: 'comprar', methods: ['GET'])]
@@ -83,7 +122,7 @@ class CompraController extends AbstractController
         $cantidad = (int) $request->query->get('cantidad', 0);
         $calidadId = $request->query->get('calidad');
 
-        // Si hay parámetros GET de compra, procesamos la transacción
+        // Si hay parámetros GET de comprar, procesamos la transacción
         if ($cantidad > 0 && $calidadId !== null) {
             $calidad = $calidadRepository->find($calidadId);
             if (!$calidad) {
@@ -109,7 +148,7 @@ class CompraController extends AbstractController
                 $precioTotal = $item->getPrecio() * $cantidad * $multiplicador;
 
                 if ($usuario->getBalance() < $precioTotal) {
-                    $this->addFlash('error', 'No tienes suficiente saldo para esta compra.');
+                    $this->addFlash('error', 'No tienes suficiente saldo para esta comprar.');
                 } else {
                     $transaccion = new Transaction();
                     $transaccion->setUser($usuario);
@@ -133,7 +172,7 @@ class CompraController extends AbstractController
             }
         }
 
-        return $this->render('compra/comprar.html.twig', [
+        return $this->render('comprar/comprar.html.twig', [
             'item' => $item,
             'calidades' => $calidades,
         ]);
@@ -156,7 +195,7 @@ class CompraController extends AbstractController
             20 // Número de ítems por página
         );
 
-        return $this->render('compra/index.html.twig', [
+        return $this->render('comprar/index.html.twig', [
             'items' => $items,
             'sortField' => $sortField,
         ]);

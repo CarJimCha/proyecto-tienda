@@ -47,6 +47,7 @@ class CsvImportController extends AbstractController
                         $categoria = new Categoria();
                         $categoria->setNombre($categoriaNombre);
                         $em->persist($categoria);
+                        $em->flush(); // Ineficiente si hubiera muchas categorías, pero no es el caso
                     }
 
                     // Buscar por nombre

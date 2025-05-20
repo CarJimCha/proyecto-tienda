@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catálogo{% endblock %}
+
+{% block body %}
+    <h1>Catálogo de objetos</h1>
+
+    <form method="get" class="mb-3">
+        <input type="text" name="nombre" value="{{ nombre }}" placeholder="Buscar por nombre">
+
+        <select name="categoria">
+            <option value="">Todas las categorías</option>
+            {% for categoria in categorias %}
+                <option value="{{ categoria.id }}" {% if categoria.id == categoriaId %}selected{% endif %}>
+                    {{ categoria.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="sort">
+            <option value="nombre" {% if sortField == 'nombre' %}selected{% endif %}>Nombre</option>
+            <option value="precio" {% if sortField == 'precio' %}selected{% endif %}>Precio</option>
+            <option value="c.nombre" {% if sortField == 'c.nombre' %}selected{% endif %}>Categoría</option>
+        </select>
+
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.getFormattedPrecio() }}</td>
+                <td>{{ item.categoria.nombre }}</td>
+                <td>
+                    <a href="{{ path('comprar', {'id': item.id}) }}">Comprar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="4">No se encontraron objetos.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(items) }}
+{% endblock %}

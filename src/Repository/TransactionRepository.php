@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Transaction;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,6 +16,28 @@ class TransactionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Transaction::class);
     }
+
+    public function getGroupedInventoryByUser(User $user): array
+    {
+        return $this->createQueryBuilder('t')
+            ->join('t.item', 'i')
+            ->join('t.categoria', 'c')
+            ->join('t.calidad', 'q')
+            ->select(
+                'i.nombre AS itemNombre',
+                'c.nombre AS categoriaNombre',
+                'q.nombre AS calidadNombre',
+                'SUM(t.cantidad) AS totalCantidad',
+                'SUM(t.precio) AS totalPrecio',
+                '(SUM(t.precio) / SUM(t.cantidad)) AS precioMedio'
+            )
+            ->where('t.user = :user')
+            ->setParameter('user', $user)
+            ->groupBy('i.id, c.id, q.id')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Transaction[] Returns an array of Transaction objects

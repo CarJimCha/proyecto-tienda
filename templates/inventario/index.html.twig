@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inventario{% endblock %}
+
+{% block body %}
+    <h1>Inventario de {{ app.user.characterName }}</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Categoría</th>
+            <th>Calidad</th>
+            <th>Cantidad</th>
+            <th>Precio medio de compra</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in inventario %}
+            <tr>
+                <td>{{ row.itemNombre }}</td>
+                <td>{{ row.categoriaNombre }}</td>
+                <td>{{ row.calidadNombre }}</td>
+                <td>{{ row.totalCantidad }}</td>
+                <td>{{ row.precioMedio|moneda_formateada }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No hay objetos en el inventario.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
