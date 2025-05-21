@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\TransactionRepository;
 use App\Repository\UserRepository;
+use App\Service\PdfGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,4 +46,41 @@ class InventarioController extends AbstractController
             'usuarioSeleccionado' => $usuarioSeleccionado,
         ]);
     }
+
+    #[Route('/inventario/pdf', name: 'app_inventario_pdf')]
+    public function exportarPdf(
+        Request $request,
+        TransactionRepository $transactionRepository,
+        UserRepository $userRepository,
+        PdfGenerator $pdfGenerator
+    ): Response {
+        $currentUser = $this->getUser();
+
+        if (!$currentUser) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $usuarioSeleccionado = $currentUser;
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $selectedUserId = $request->query->get('usuario_id');
+            if ($selectedUserId) {
+                $usuarioSeleccionado = $userRepository->find($selectedUserId);
+            }
+        }
+
+        $inventario = $transactionRepository->getGroupedInventoryByUser($usuarioSeleccionado);
+
+        $pdfContent = $pdfGenerator->generatePdf('pdf/inventario.html.twig', [
+            'usuarioSeleccionado' => $usuarioSeleccionado,
+            'inventario' => $inventario,
+        ]);
+
+        return new Response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="inventario_' . $usuarioSeleccionado->getCharacterName() . '.pdf"',
+        ]);
+    }
+
+
 }

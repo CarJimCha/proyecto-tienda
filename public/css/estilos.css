@@ -98,5 +98,25 @@ table, th, td {
     outline: none;
 }
 
+.title {
+    display: flex;
+    align-items: center;      /* misma altura vertical */
+    justify-content: center;  /* centramos contenido */
+    position: relative;
+    padding: 0 1rem;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.title h2 {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.title a {
+    margin-left: auto; /* empuja el enlace a la derecha */
+}
 
 
