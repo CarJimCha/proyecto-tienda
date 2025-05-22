@@ -1,0 +1,15 @@
+<form method="get" class="form-inline mb-3">
+    <label for="items_per_page">Artículos por página:</label>
+    <select name="items_per_page" id="items_per_page" onchange="this.form.submit()">
+        <option value="10" {% if itemsPerPage == 10 %}selected{% endif %}>10</option>
+        <option value="20" {% if itemsPerPage == 20 %}selected{% endif %}>20</option>
+        <option value="50" {% if itemsPerPage == 50 %}selected{% endif %}>50</option>
+        <option value="100" {% if itemsPerPage == 100 %}selected{% endif %}>100</option>
+    </select>
+
+    {% for key, value in app.request.query.all %}
+        {% if key not in ['items_per_page', 'page'] %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endif %}
+    {% endfor %}
+</form>

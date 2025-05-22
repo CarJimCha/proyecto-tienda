@@ -7,6 +7,7 @@ use App\Entity\Transaction;
 use App\Repository\CategoriaRepository;
 use App\Repository\ItemRepository;
 use App\Entity\User;
+use App\Service\PaginadorService;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,12 +40,11 @@ class CompraController extends AbstractController
         Request $request,
         ItemRepository $itemRepository,
         CategoriaRepository $categoriaRepository,
-        PaginatorInterface $paginator
+        PaginadorService $paginadorService
     ): Response {
         $queryBuilder = $itemRepository->createQueryBuilder('i')
             ->leftJoin('i.categoria', 'c')
             ->addSelect('i', 'c');
-            // ->addSelect('c.nombre'); // Añadimos el campo de categoría necesario para la ordenación
 
         // Filtros
         $nombre = $request->query->get('nombre');
@@ -60,9 +60,8 @@ class CompraController extends AbstractController
                 ->setParameter('categoriaId', $categoriaId);
         }
 
-        // Ordenación segura con switch
+        // Ordenación segura
         $sortParam = $request->query->get('sort', 'i.nombre');
-
         switch ($sortParam) {
             case 'i.precio':
                 $queryBuilder->orderBy('i.precio', 'ASC');
@@ -79,21 +78,20 @@ class CompraController extends AbstractController
                 break;
         }
 
-        $sortField = $sortParam;
+        // Obtener items_per_page desde la request, por defecto 10
+        $itemsPerPage = $request->query->getInt('items_per_page', 10);
 
-        // Paginación
-        $items = $paginator->paginate(
-            $queryBuilder,
-            $request->query->getInt('page', 1),
-            25
-        );
+        // Llamar al servicio pasando itemsPerPage explicitamente
+        $items = $paginadorService->paginar($queryBuilder, $request, $itemsPerPage);
 
+        // Pasar itemsPerPage a la plantilla para usar en el select
         return $this->render('comprar/index.html.twig', [
             'items' => $items,
-            'sortField' => $sortField,
+            'sortField' => $sortParam,
             'nombre' => $nombre,
             'categoriaId' => $categoriaId,
             'categorias' => $categoriaRepository->findAll(),
+            'itemsPerPage' => $itemsPerPage,  // <-- aquí
         ]);
     }
 

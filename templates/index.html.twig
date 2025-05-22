@@ -16,16 +16,16 @@
         {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
             <a href="{{ path('app_inventario') }}" class="btn btn-primary">Inventario</a>
             <br><br>
-            <a href="{{ path('app_compra') }}" class="btn btn-primary">Compra de Items</a>
+            <a href="{{ path('app_compra') }}" class="btn btn-primary">Compra de Artículos</a>
             <br><br>
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_inventario') }}" class="btn btn-primary">Inventario de los jugadores</a>
+            <a href="{{ path('app_inventario') }}" class="btn btn-primary">Inventarios de los Jugadores</a>
             <br><br>
-            <a href="{{ path('app_import_items') }}" class="btn btn-primary">Importar Ítems desde CSV</a>
+            <a href="{{ path('app_import_items') }}" class="btn btn-primary">Importar Artículos desde CSV</a>
             <br><br>
-            <a href="{{ path('app_item_index') }}" class="btn btn-primary">Administrar Items</a>
+            <a href="{{ path('app_item_index') }}" class="btn btn-primary">Administrar Artículos</a>
             <br><br>
             <a href="{{ path('app_categoria_index') }}" class="btn btn-primary">Administrar Categoría</a>
             <br><br>

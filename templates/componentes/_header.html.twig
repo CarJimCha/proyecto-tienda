@@ -13,13 +13,13 @@
 
                 {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_inventario') }}">Inventario</a></li>
-                    <li><a href="{{ path('app_compra') }}">Compra de Ítems</a></li>
+                    <li><a href="{{ path('app_compra') }}">Compra de Artículos</a></li>
                 {% endif %}
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_inventario') }}">Inventarios</a></li>
-                    <li><a href="{{ path('app_import_items') }}">Importar Ítems desde CSV</a></li>
-                    <li><a href="{{ path('app_item_index') }}">Administrar Ítems</a></li>
+                    <li><a href="{{ path('app_import_items') }}">Importar Artículos desde CSV</a></li>
+                    <li><a href="{{ path('app_item_index') }}">Administrar Artículos</a></li>
                     <li><a href="{{ path('app_categoria_index') }}">Administrar Categorías</a></li>
                     <li><a href="{{ path('app_calidad_index') }}">Administrar Calidades</a></li>
                     <li><a href="{{ path('app_user_index') }}">Administrar Usuarios</a></li>

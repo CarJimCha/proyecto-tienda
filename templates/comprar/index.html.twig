@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catálogo{% endblock %}
+{% block title %}Compra de Artículos{% endblock %}
 
 {% block body %}
-    <h1>Catálogo de objetos</h1>
+    <h1>Compra de Artículos</h1>
 
     <form method="get" class="mb-3">
         <input type="text" name="nombre" value="{{ nombre }}" placeholder="Buscar por nombre">
@@ -24,9 +24,10 @@
             <option value="c.nombre" {% if sortField == 'c.nombre' %}selected{% endif %}>Categoría</option>
         </select>
 
-
         <button type="submit">Filtrar</button>
     </form>
+
+    {% include 'componentes/_selector_paginacion.html.twig' %}
 
     <br>
 
@@ -36,7 +37,7 @@
             <th>Nombre</th>
             <th>Precio</th>
             <th>Categoría</th>
-            <th>Acciones</th>
+            <th>Comprar</th>
         </tr>
         </thead>
         <tbody>
@@ -46,7 +47,9 @@
                 <td>{{ item.getFormattedPrecio() }}</td>
                 <td>{{ item.categoria.nombre }}</td>
                 <td>
-                    <a href="{{ path('comprar', {'id': item.id}) }}">Comprar</a>
+                    <a href="{{ path('comprar', {'id': item.id}) }}" class="btn btn-outline-danger" title="Comprar">
+                        <img src="{{ asset('images/coins-solid.svg') }}" alt="PDF" width="20" style="vertical-align: middle;">
+                    </a>
                 </td>
             </tr>
         {% else %}
