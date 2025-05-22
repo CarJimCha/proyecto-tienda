@@ -1,32 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Calidad index{% endblock %}
+{% block title %}Administrar Calidad{% endblock %}
 
 {% block body %}
-    <h1>Calidad index</h1>
+    <h1>Administrar Calidad</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
-                <th>Numero</th>
-                <th>Multiplicador_precio</th>
-                <th>Multiplicador_precio_combate</th>
-                <th>actions</th>
+                <th>Valor</th>
+                <th>Multiplicador al precio</th>
+                <th>Multiplicador al precio - Bonos mecánicos</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
         {% for calidad in calidads %}
             <tr>
-                <td>{{ calidad.id }}</td>
                 <td>{{ calidad.nombre }}</td>
                 <td>{{ calidad.numero }}</td>
                 <td>{{ calidad.multiplicadorPrecio }}</td>
                 <td>{{ calidad.multiplicadorPrecioCombate }}</td>
-                <td>
-                    <a href="{{ path('app_calidad_show', {'id': calidad.id}) }}">show</a>
-                    <a href="{{ path('app_calidad_edit', {'id': calidad.id}) }}">edit</a>
+                <td class="acciones">
+                    <a href="{{ path('app_calidad_show', {'id': calidad.id}) }}" title="Mostrar">
+                        <img src="{{ asset('images/magnifying-glass-solid.svg') }}" alt="Mostrar" width="16">
+                    </a>
+                    <a href="{{ path('app_calidad_edit', {'id': calidad.id}) }}" title="Editar">
+                        <img src="{{ asset('images/pen-to-square-regular.svg') }}" alt="Editar" width="16">
+                    </a>
+                    <a href="{{ path('app_calidad_delete', {'id': calidad.id}) }}" title="Borrar">
+                        <img src="{{ asset('images/eraser-solid.svg') }}" alt="Borrar" width="16">
+                    </a>
                 </td>
             </tr>
         {% else %}

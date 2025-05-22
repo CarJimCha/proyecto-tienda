@@ -180,3 +180,17 @@ a.tabla-orden-link:hover {
     text-decoration: underline;
 }
 
+td.acciones a {
+    margin-right: 8px;
+    text-decoration: none;
+}
+
+td.acciones img {
+    vertical-align: middle;
+    transition: transform 0.2s;
+}
+
+td.acciones a:hover img {
+    transform: scale(1.1);
+}
+

@@ -14,7 +14,7 @@
 
                 <th>Categoria</th>
                 <th>Peso</th>
-                <th>Botones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -23,13 +23,18 @@
 
                 <td>{{ item.nombre }}</td>
                 <td>{{ item.precio }}</td>
-
                 <td>{{ item.categoria }}</td>
                 <td>{{ item.peso }}</td>
-                <td>
-                    <a href="{{ path('app_item_show', {'id': item.id}) }}">Mostrar</a>
-                    <a href="{{ path('app_item_edit', {'id': item.id}) }}">Editar</a>
-                    <a href="{{ path('app_item_delete', {'id': item.id}) }}">Borrar</a>
+                <td class="acciones">
+                    <a href="{{ path('app_item_show', {'id': item.id}) }}" title="Mostrar">
+                        <img src="{{ asset('images/magnifying-glass-solid.svg') }}" alt="Mostrar" width="16">
+                    </a>
+                    <a href="{{ path('app_item_edit', {'id': item.id}) }}" title="Editar">
+                        <img src="{{ asset('images/pen-to-square-regular.svg') }}" alt="Editar" width="16">
+                    </a>
+                    <a href="{{ path('app_item_delete', {'id': item.id}) }}" title="Borrar">
+                        <img src="{{ asset('images/eraser-solid.svg') }}" alt="Borrar" width="16">
+                    </a>
                 </td>
             </tr>
         {% else %}

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestión de Usuarios{% endblock %}
+{% block title %}Administrar Usuarios{% endblock %}
 
 {% block body %}
-    <h1>Gestión de Usuarios</h1>
+    <h1>Administrar Usuarios</h1>
 
     <table class="table">
         <thead>
@@ -25,10 +25,16 @@
 
                 <td><input type="checkbox" {% if 'ROLE_USER' in user.roles %}checked{% endif %} disabled></td>
                 <td><input type="checkbox" {% if 'ROLE_ADMIN' in user.roles %}checked{% endif %} disabled></td>
-
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn-compra">Mostrar</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn-compra">Editar</a>
+                <td class="acciones">
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" title="Mostrar">
+                        <img src="{{ asset('images/magnifying-glass-solid.svg') }}" alt="Mostrar" width="16">
+                    </a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" title="Editar">
+                        <img src="{{ asset('images/pen-to-square-regular.svg') }}" alt="Editar" width="16">
+                    </a>
+                    <a href="{{ path('app_user_delete', {'id': user.id}) }}" title="Borrar">
+                        <img src="{{ asset('images/eraser-solid.svg') }}" alt="Borrar" width="16">
+                    </a>
                 </td>
             </tr>
         {% else %}
