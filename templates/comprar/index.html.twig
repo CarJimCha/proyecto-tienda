@@ -71,7 +71,7 @@
                 <td>{{ item.getFormattedPrecio() }}</td>
                 <td>{{ item.categoria.nombre }}</td>
 
-                <td>
+                <td class="acciones">
                     {% if item.precio > 0 %}
                         <a href="{{ path('app_compra', {'id': item.id}) }}" class="btn btn-outline-danger" title="Comprar">
                             <img src="{{ asset('images/coins-solid.svg') }}" alt="Comprar" width="20" style="vertical-align: middle;">
