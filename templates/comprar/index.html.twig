@@ -17,13 +17,6 @@
             {% endfor %}
         </select>
 
-        <select name="sort">
-            <option value="i.nombre"   {% if sortField == 'i.nombre'   %}selected{% endif %}>Nombre</option>
-            <option value="i.precio"   {% if sortField == 'i.precio'   %}selected{% endif %}>Precio (asc)</option>
-            <option value="i.precio_DESC"   {% if sortField == 'i.precio_DESC'   %}selected{% endif %}>Precio (desc)</option>
-            <option value="c.nombre" {% if sortField == 'c.nombre' %}selected{% endif %}>Categoría</option>
-        </select>
-
         <button type="submit">Filtrar</button>
     </form>
 
@@ -33,24 +26,61 @@
 
     <table>
         <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Categoría</th>
-            <th>Comprar</th>
-        </tr>
+            <tr>
+                <th>
+                    <a class="tabla-orden-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({
+                        sort: 'i.nombre',
+                        direction: sortField == 'i.nombre' and sortDirection == 'ASC' ? 'DESC' : 'ASC'
+                    })) }}">
+                        Nombre
+                        {% if sortField == 'i.nombre' %}
+                            <img src="{{ asset('images/' ~ (sortDirection == 'ASC' ? 'arrow-down-a-z-solid.svg' : 'arrow-up-a-z-solid.svg')) }}" alt="Orden nombre" width="14">
+                        {% endif %}
+                    </a>
+                </th>
+                <th>
+                    <a class="tabla-orden-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({
+                        sort: 'i.precio',
+                        direction: sortField == 'i.precio' and sortDirection == 'ASC' ? 'DESC' : 'ASC'
+                    })) }}">
+                        Precio
+                        {% if sortField == 'i.precio' %}
+                            <img src="{{ asset('images/' ~ (sortDirection == 'ASC' ? 'arrow-up-1-9-solid.svg' : 'arrow-down-1-9-solid.svg')) }}" alt="Orden precio" width="14">
+                        {% endif %}
+                    </a>
+                </th>
+                <th>
+                    <a class="tabla-orden-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({
+                        sort: 'c.nombre',
+                        direction: sortField == 'c.nombre' and sortDirection == 'ASC' ? 'DESC' : 'ASC'
+                    })) }}">
+                        Categoría
+                        {% if sortField == 'c.nombre' %}
+                            <img src="{{ asset('images/' ~ (sortDirection == 'ASC' ? 'arrow-down-a-z-solid.svg' : 'arrow-up-a-z-solid.svg')) }}" alt="Orden categoría" width="14">
+                        {% endif %}
+                    </a>
+                </th>
+                <th>Comprar</th>
+            </tr>
         </thead>
+
         <tbody>
         {% for item in items %}
             <tr>
                 <td>{{ item.nombre }}</td>
                 <td>{{ item.getFormattedPrecio() }}</td>
                 <td>{{ item.categoria.nombre }}</td>
+
                 <td>
-                    <a href="{{ path('comprar', {'id': item.id}) }}" class="btn btn-outline-danger" title="Comprar">
-                        <img src="{{ asset('images/coins-solid.svg') }}" alt="PDF" width="20" style="vertical-align: middle;">
-                    </a>
+                    {% if item.precio > 0 %}
+                        <a href="{{ path('app_compra', {'id': item.id}) }}" class="btn btn-outline-danger" title="Comprar">
+                            <img src="{{ asset('images/coins-solid.svg') }}" alt="Comprar" width="20" style="vertical-align: middle;">
+                        </a>
+                    {% else %}
+                        <span class="text-muted">No disponible</span>
+                    {% endif %}
                 </td>
+
             </tr>
         {% else %}
             <tr><td colspan="4">No se encontraron objetos.</td></tr>

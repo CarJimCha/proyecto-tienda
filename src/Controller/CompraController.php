@@ -44,7 +44,7 @@ class CompraController extends AbstractController
     ): Response {
         $queryBuilder = $itemRepository->createQueryBuilder('i')
             ->leftJoin('i.categoria', 'c')
-            ->addSelect('i', 'c');
+            ->addSelect('c');
 
         // Filtros
         $nombre = $request->query->get('nombre');
@@ -61,40 +61,44 @@ class CompraController extends AbstractController
         }
 
         // Ordenación segura
-        $sortParam = $request->query->get('sort', 'i.nombre');
-        switch ($sortParam) {
-            case 'i.precio':
-                $queryBuilder->orderBy('i.precio', 'ASC');
-                break;
-            case 'i.precio_DESC':
-                $queryBuilder->orderBy('i.precio', 'DESC');
-                break;
-            case 'c.nombre':
-                $queryBuilder->orderBy('c.nombre', 'ASC');
-                break;
-            default:
-                $queryBuilder->orderBy('i.nombre', 'ASC');
-                $sortParam = 'i.nombre';
-                break;
+        $allowedSorts = ['i.nombre', 'i.precio', 'c.nombre'];
+        $sortField = $request->query->get('sort', 'i.nombre');
+        $sortDirection = strtoupper($request->query->get('direction', 'ASC'));
+
+        if (!in_array($sortField, $allowedSorts)) {
+            $sortField = 'i.nombre';
+        }
+        if (!in_array($sortDirection, ['ASC', 'DESC'])) {
+            $sortDirection = 'ASC';
         }
 
-        // Obtener items_per_page desde la request, por defecto 10
-        $itemsPerPage = $request->query->getInt('items_per_page', 10);
+        if ($sortField === 'i.precio') {
+            // Creamos un campo oculto que indica si el precio es 0 (no comprable)
+            $queryBuilder
+                ->addSelect('(CASE WHEN i.precio = 0 THEN 1 ELSE 0 END) AS HIDDEN is_not_buyable');
 
-        // Llamar al servicio pasando itemsPerPage explicitamente
+            // Para ASC: primero los comprables, luego los de precio 0
+            // Para DESC: primero los de precio 0
+            $queryBuilder->orderBy('is_not_buyable', $sortDirection === 'ASC' ? 'ASC' : 'DESC')
+                ->addOrderBy('i.precio', $sortDirection);
+        } else {
+            $queryBuilder->orderBy($sortField, $sortDirection);
+        }
+
+        // Paginación
+        $itemsPerPage = $request->query->getInt('items_per_page', 10);
         $items = $paginadorService->paginar($queryBuilder, $request, $itemsPerPage);
 
-        // Pasar itemsPerPage a la plantilla para usar en el select
         return $this->render('comprar/index.html.twig', [
             'items' => $items,
-            'sortField' => $sortParam,
+            'sortField' => $sortField,
+            'sortDirection' => $sortDirection,
             'nombre' => $nombre,
             'categoriaId' => $categoriaId,
             'categorias' => $categoriaRepository->findAll(),
-            'itemsPerPage' => $itemsPerPage,  // <-- aquí
+            'itemsPerPage' => $itemsPerPage,
         ]);
     }
-
 
 
 
