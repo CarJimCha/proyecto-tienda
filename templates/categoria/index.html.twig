@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Administrar Categoria</h1>
 
+    <a href="{{ path('app_categoria_new') }}" class="btn btn-primary">Crear Categoria</a><br><br>
+
     <table class="table">
         <thead>
             <tr>
@@ -36,5 +38,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_categoria_new') }}">Create new</a>
 {% endblock %}

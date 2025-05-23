@@ -5,10 +5,11 @@
 {% block body %}
     <h1>Administrar Usuarios</h1>
 
+    <a href="{{ path('app_user_new') }}" class="btn btn-primary">Crear Usuario</a><br><br>
+
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
                 <th>Balance</th>
                 <th>Usuario</th>
@@ -19,7 +20,6 @@
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
                 <td>{{ user.characterName }}</td>
                 <td>{{ user.balance }}</td>
 
@@ -45,7 +45,4 @@
         </tbody>
     </table>
 
-    <p><a href="{{ path('app_user_new') }}">Crear Nuevo Usuario</a></p>
-
-    <a href="{{ path('index') }}" class="btn btn-primary">Volver al Inicio</a>
 {% endblock %}

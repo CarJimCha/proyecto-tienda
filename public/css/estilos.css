@@ -1,3 +1,18 @@
+/* ==================== FONTS ==================== */
+body {
+    font-family: 'Cardo', serif;
+    padding-top: 20px;
+    text-align: center;
+    background-color: #d8e3d0; /* verde claro */
+    color: #1f2e1e; /* texto más oscuro para contraste */
+}
+
+.title h2, h1 {
+    font-family: 'Uncial Antiqua', serif;
+}
+
+
+/* ==================== HEADER ==================== */
 header {
     position: fixed;
     top: 0;
@@ -16,6 +31,8 @@ header {
     font-weight: bold;
 }
 
+
+/* ==================== NAVEGACIÓN ==================== */
 .nav-list {
     list-style: none;
     display: flex !important;
@@ -38,32 +55,8 @@ header {
     background-color: #9b7b53; /* madera clara */
 }
 
-body {
-    padding-top: 20px;
-    text-align: center;
-    background-color: #d8e3d0; /* verde claro */
-    color: #1f2e1e; /* texto más oscuro para contraste */
-}
 
-table {
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 80%;
-    border-collapse: collapse;
-    text-align: center;
-    background-color: #f3f7ef; /* un blanco verdoso suave */
-    color: #1f2e1e;
-}
-
-table th, table td {
-    text-align: center;
-    padding: 8px;
-}
-
-table, th, td {
-    border: 1px solid #4a5e4d; /* borde más integrado */
-}
-
+/* ==================== TÍTULO ==================== */
 .title {
     display: flex;
     align-items: center;
@@ -79,7 +72,7 @@ table, th, td {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: #black;
+    color: black;
 }
 
 .title a {
@@ -95,58 +88,29 @@ table, th, td {
     transform: scale(1.1);
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-}
 
-.pagination a {
-    color: #e0e6dc !important;
-    text-decoration: none;
-}
-
-.pagination span.page,
-.pagination span.current,
-.pagination span.first,
-.pagination span.last,
-.pagination span.previous,
-.pagination span.next {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
+/* ==================== TABLAS ==================== */
+table {
+    margin: 0 auto;
+    width: 80%;
+    border-collapse: collapse;
     text-align: center;
-    border-radius: 50%;
-    background-color: #4a5e4d;
-    color: #e0e6dc;
-    font-weight: bold;
-    text-decoration: none;
-    transition: all 0.3s;
-    border: 1px solid #678d58;
-}
-
-.pagination span.page:hover,
-.pagination a.page:hover {
-    background-color: #9b7b53;
+    background-color: #f3f7ef; /* blanco verdoso suave */
     color: #1f2e1e;
-    cursor: pointer;
 }
 
-.pagination span.current {
-    background-color: #bfa873;
+thead {
+    background-color: #bfa873; /* color cálido para encabezados */
     color: #1f2e1e;
-    border: 1px solid #9b7b53;
 }
 
-.pagination span.page a {
-    color: inherit;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    height: 100%;
+table th, table td {
+    padding: 8px;
+    text-align: center;
+}
+
+table, th, td {
+    border: 1px solid #4a5e4d; /* borde más integrado */
 }
 
 a.tabla-orden-link {
@@ -175,8 +139,63 @@ td.acciones a:hover img {
     transform: scale(1.1);
 }
 
-/* NUEVO: Estilos para botones generales y tablas destacadas */
 
+/* ==================== PÁGINACIÓN ==================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.pagination a {
+    color: #e0e6dc !important;
+    text-decoration: none;
+}
+
+.pagination span.page,
+.pagination span.current,
+.pagination span.first,
+.pagination span.last,
+.pagination span.previous,
+.pagination span.next {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #4a5e4d;
+    color: #e0e6dc;
+    font-weight: bold;
+    border: 1px solid #678d58;
+    transition: all 0.3s;
+}
+
+.pagination span.page:hover,
+.pagination a.page:hover {
+    background-color: #9b7b53;
+    color: #1f2e1e;
+    cursor: pointer;
+}
+
+.pagination span.current {
+    background-color: #bfa873;
+    color: #1f2e1e;
+    border: 1px solid #9b7b53;
+}
+
+.pagination span.page a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ==================== BOTONES ==================== */
 button, .btn {
     background-color: #678d58;
     color: #e0e6dc;
@@ -193,7 +212,19 @@ button:hover, .btn:hover {
     color: #1f2e1e;
 }
 
-thead {
-    background-color: #bfa873; /* color cálido para encabezados */
-    color: #1f2e1e;
+.btn {
+    display: inline-block;
+    min-width: 250px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+/* ==================== IMAGEN PRINCIPAL ==================== */
+.welcome-image {
+    display: block;
+    margin: 20px auto;
+    max-width: 40%;
+    height: auto;
+    border-radius: 8px;
 }
