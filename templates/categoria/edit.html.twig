@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Editar Categoria</h1>
 
-    {{ include('categoria/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_categoria_index') }}">back to list</a>
+    {{ include('categoria/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
     {{ include('categoria/_delete_form.html.twig') }}
+
+    <br><a href="{{ path('app_categoria_index') }}" class="btn btn-primary">Volver a la lista</a>
 {% endblock %}

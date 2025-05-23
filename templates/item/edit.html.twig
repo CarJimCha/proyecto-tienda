@@ -7,7 +7,7 @@
 
     {{ include('item/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('app_item_index') }}">Volver a la lista</a>
-
     {{ include('item/_delete_form.html.twig') }}
+
+    <br><a href="{{ path('app_item_index') }}" class="btn">Volver a la lista</a>
 {% endblock %}
