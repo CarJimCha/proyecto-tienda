@@ -22,13 +22,12 @@
 
     <div class="title">
         <h2>Inventario de {{ usuarioSeleccionado.characterName }}</h2>
-
         <a href="{{ path('app_inventario_pdf', {'usuario_id': usuarioSeleccionado.id}) }}" class="btn btn-outline-danger" title="Descargar PDF">
             <img src="{{ asset('images/file-pdf-solid.svg') }}" alt="PDF" width="20" style="vertical-align: middle;">
         </a>
     </div>
 
-    <br>
+    <h3><i>Fondos actuales:</i> {{ usuarioSeleccionado.balance|moneda_formateada }}</h3><br>
 
     <table>
         <thead>

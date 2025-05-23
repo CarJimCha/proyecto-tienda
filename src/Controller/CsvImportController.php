@@ -28,15 +28,21 @@ class CsvImportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $csvFile = $form->get('csv_file')->getData();
             if (($handle = fopen($csvFile->getPathname(), 'r')) !== false) {
+                // ...
                 $firstLine = true;
                 $importedCount = 0;
                 $updatedCount = 0;
+                $totalCount = 0;
+
+                // ... (resto del código igual)
 
                 while (($data = fgetcsv($handle, 1000, ';')) !== false) {
                     if ($firstLine) {
                         $firstLine = false;
                         continue;
                     }
+
+                    $totalCount++;
 
                     [$nombre, $precioTexto, $peso, $categoriaNombre] = $data;
                     $precioMc = $this->convertirPrecioAMc($precioTexto);
@@ -47,7 +53,7 @@ class CsvImportController extends AbstractController
                         $categoria = new Categoria();
                         $categoria->setNombre($categoriaNombre);
                         $em->persist($categoria);
-                        $em->flush(); // Ineficiente si hubiera muchas categorías, pero no es el caso
+                        $em->flush(); // OK si no hay muchas categorías
                     }
 
                     // Buscar por nombre
@@ -56,22 +62,53 @@ class CsvImportController extends AbstractController
                     if (!$item) {
                         $item = new Item();
                         $item->setNombre($nombre);
+                        $item->setPrecio($precioMc);
+                        $item->setPeso((float) $peso);
+                        $item->setCategoria($categoria);
                         $em->persist($item);
                         $importedCount++;
                     } else {
-                        $updatedCount++;
-                    }
+                        $cambios = [];
 
-                    // Actualizar datos (común a creación y edición)
-                    $item->setPrecio($precioMc);
-                    $item->setPeso((float) $peso);
-                    $item->setCategoria($categoria);
+                        if ($item->getPrecio() !== $precioMc) {
+                            $cambios[] = "Precio anterior: " . $this->convertirPrecioTexto($item->getPrecio()) .
+                                "\nPrecio actual: " . $this->convertirPrecioTexto($precioMc);
+                            $item->setPrecio($precioMc);
+                        }
+
+                        if ($item->getPeso() !== (float) $peso) {
+                            $cambios[] = "Peso anterior: " . $item->getPeso() .
+                                "\nPeso actual: " . (float) $peso;
+                            $item->setPeso((float) $peso);
+                        }
+
+                        if ($item->getCategoria() !== $categoria) {
+                            $cambios[] = "Categoría anterior: " . $item->getCategoria()->getNombre() .
+                                "\nCategoría actual: " . $categoria->getNombre();
+                            $item->setCategoria($categoria);
+                        }
+
+                        if (!empty($cambios)) {
+                            $updatedCount++;
+                            $detallesActualizados[$item->getNombre()] = implode("\n", $cambios);
+                        }
+                    }
                 }
 
                 fclose($handle);
                 $em->flush();
 
-                $this->addFlash('success', "Importación completada: $importedCount nuevos, $updatedCount actualizados.");
+                $mensaje = "Importación completada: $importedCount nuevos y $updatedCount actualizados de un total de $totalCount artículos procesados.";
+
+                if (!empty($detallesActualizados)) {
+                    $mensaje .= "\n\nDetalles de las actualizaciones:";
+                    foreach ($detallesActualizados as $nombre => $detalle) {
+                        $mensaje .= "\n\n$nombre:\n$detalle";
+                    }
+                }
+
+                $this->addFlash('success', $mensaje);
+
                 return $this->redirectToRoute('app_import_items');
             } else {
                 $this->addFlash('danger', 'No se pudo leer el archivo CSV.');
@@ -109,4 +146,20 @@ class CsvImportController extends AbstractController
 
         return $mc;
     }
+
+    private function convertirPrecioTexto(int $mc): string
+    {
+        $mo = intdiv($mc, 1000);
+        $resto = $mc % 1000;
+        $mp = intdiv($resto, 10);
+        $mcRestante = $resto % 10;
+
+        $partes = [];
+        if ($mo > 0) $partes[] = $mo . ' MO';
+        if ($mp > 0) $partes[] = $mp . ' MP';
+        if ($mcRestante > 0) $partes[] = $mcRestante . ' MC';
+
+        return $partes ? implode(' ', $partes) : '0 MC';
+    }
+
 }

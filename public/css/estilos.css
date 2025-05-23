@@ -79,7 +79,7 @@ table, th, td {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: #e0e6dc;
+    color: #black;
 }
 
 .title a {

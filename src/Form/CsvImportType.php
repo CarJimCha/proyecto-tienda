@@ -13,7 +13,7 @@ class CsvImportType extends AbstractType
     {
         $builder
             ->add('csv_file', FileType::class, [
-                'label' => 'Archivo CSV',
+                'label' => 'Archivo CSV: ',
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
