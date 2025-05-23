@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Calidad{% endblock %}
+{% block title %}Editar Calidad{% endblock %}
 
 {% block body %}
-    <h1>Edit Calidad</h1>
+    <h1>Editar Calidad</h1>
 
-    {{ include('calidad/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('calidad/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('app_calidad_index') }}">back to list</a>
+    <a href="{{ path('app_calidad_index') }}" class="btn btn-primary">Volver a la lista</a><br><br>
 
     {{ include('calidad/_delete_form.html.twig') }}
 {% endblock %}
