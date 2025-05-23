@@ -4,43 +4,81 @@
     <meta charset="UTF-8">
     <title>Inventario de {{ usuarioSeleccionado.characterName }}</title>
     <style>
-        body { font-family: Arial, sans-serif; font-size: 12px; }
-        h1 { text-align: center; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td {
-            border: 1px solid #000;
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            background-color: #dce5cf; /* verde claro */
+            color: #000;
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th {
+            background-color: #a88d3a; /* verde musgo oscuro */
+            color: white;
+            padding: 8px;
+            border: 1px solid #555;
+        }
+
+        td {
+            border: 1px solid #aaa;
             padding: 6px;
             text-align: center;
+            background-color: #f4f7ee; /* un tono muy suave para las filas */
+        }
+
+        tr:nth-child(even) td {
+            background-color: #e5ecd8; /* alternancia más clara */
+        }
+
+        td[colspan="5"] {
+            background-color: #f9f9f9;
+            font-style: italic;
         }
     </style>
-
 </head>
-<body>
-<h1>Inventario de {{ usuarioSeleccionado.characterName }}</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>Cantidad</th>
-        <th>Item</th>
-        <th>Categoría</th>
-        <th>Calidad</th>
-        <th>Precio medio de compra</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for row in inventario %}
-        <tr>
-            <td>{{ row.totalCantidad }}</td>
-            <td>{{ row.itemNombre }}</td>
-            <td>{{ row.categoriaNombre }}</td>
-            <td>{{ row.calidadNombre }}</td>
-            <td>{{ row.precioMedio|moneda_formateada }}</td>
-        </tr>
-    {% else %}
-        <tr><td colspan="5">Inventario vacío.</td></tr>
-    {% endfor %}
-    </tbody>
-</table>
+<body style="margin: 0; background-color: #dce5cf;">
+
+    <div style="padding: 20mm;">
+        <h1>Inventario de {{ usuarioSeleccionado.characterName }}</h1>
+        <h3>Balance actual: {{ usuarioSeleccionado.balance|moneda_formateada }}</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Cantidad</th>
+                <th>Item</th>
+                <th>Categoría</th>
+                <th>Calidad</th>
+                <th>Precio medio de compra</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in inventario %}
+                <tr>
+                    <td>{{ row.totalCantidad }}</td>
+                    <td>{{ row.itemNombre }}</td>
+                    <td>{{ row.categoriaNombre }}</td>
+                    <td>{{ row.calidadNombre }}</td>
+                    <td>{{ row.precioMedio|moneda_formateada }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5">Inventario vacío.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
 </body>
 </html>
