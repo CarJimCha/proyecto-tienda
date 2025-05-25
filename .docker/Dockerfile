@@ -1,31 +1,47 @@
 FROM php:8.1-fpm
 
-# Instalar dependencias
+# Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
-    git unzip libicu-dev libonig-dev libzip-dev zip nginx supervisor \
+    git \
+    unzip \
+    libicu-dev \
+    libonig-dev \
+    libzip-dev \
+    zip \
+    nginx \
+    supervisor \
     && docker-php-ext-install intl mbstring zip pdo pdo_mysql
 
-# Instalar Composer
+# Instalar Composer desde imagen oficial
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Configuración de Nginx y supervisor
+# Establecer variable PATH para composer (por si acaso)
+ENV PATH="/usr/local/bin:$PATH"
+
+# Configuración de Nginx y Supervisor
 COPY .docker/nginx.conf /etc/nginx/sites-available/default
 COPY .docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Establecer el directorio de trabajo
+# Directorio de trabajo
 WORKDIR /app
 
-# Copiar la app
+# Copiar el código fuente
 COPY . .
 
-# Instalar dependencias PHP sin dev
-RUN composer install --no-dev --optimize-autoloader --no-scripts --prefer-dist --no-interaction
+# Instalar dependencias PHP (sin scripts para evitar errores)
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-scripts \
+    --prefer-dist \
+    --no-interaction \
+    --ignore-platform-reqs
 
 # Limpiar caché Symfony
 RUN php bin/console cache:clear --env=prod --no-warmup --verbose
 
-# Exponer el puerto 80 (para HTTP)
+# Exponer el puerto 80 (HTTP)
 EXPOSE 80
 
-# Comando para iniciar tanto PHP-FPM como Nginx
+# Iniciar Supervisor que levanta Nginx + PHP-FPM
 CMD ["/usr/bin/supervisord"]
