@@ -20,8 +20,12 @@ WORKDIR /app
 # Copia todo el código al contenedor
 COPY . .
 
-# Ejecuta composer install (sin dependencias de desarrollo)
-RUN composer install --no-dev --optimize-autoloader
+# Ejecuta composer install con verbose y sin scripts para depurar
+RUN composer clear-cache && \
+    composer install --no-dev --optimize-autoloader --no-scripts --verbose --no-interaction --prefer-dist
+
+# Limpia cache de Symfony en entorno prod y con verbose
+RUN php bin/console cache:clear --env=prod --no-warmup --verbose
 
 # Expone el puerto 9000 para PHP-FPM
 EXPOSE 9000
