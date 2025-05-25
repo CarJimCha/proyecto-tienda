@@ -18,6 +18,12 @@
         {% if app.user %}
             {% include 'componentes/_header.html.twig' %}
         {% endif %}
+
         {% block body %}{% endblock %}
+
+        {%  if app.user %}
+            {% include 'componentes/_footer.html.twig' %}
+        {% endif %}
+
     </body>
 </html>

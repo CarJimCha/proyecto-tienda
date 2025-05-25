@@ -56,6 +56,18 @@ header {
 }
 
 
+/* ==================== FOOTER ==================== */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 95%;
+    text-align: right;
+    padding: 0.5rem 0;
+    background-color: #d8e3d0;
+}
+
+
+
 /* ==================== TÍTULO ==================== */
 .title {
     display: flex;

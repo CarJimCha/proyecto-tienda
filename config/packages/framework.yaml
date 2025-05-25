@@ -17,6 +17,9 @@ framework:
     php_errors:
         log: true
 
+    mailer:
+        message_bus: false
+
 when@test:
     framework:
         test: true
