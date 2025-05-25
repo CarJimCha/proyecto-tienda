@@ -22,9 +22,19 @@
 
     <div class="title">
         <h2>Inventario de {{ usuarioSeleccionado.characterName }}</h2>
+    </div>
+
+    <br>
+
+    <div>
         <a href="{{ path('app_inventario_pdf', {'usuario_id': usuarioSeleccionado.id}) }}" class="btn btn-outline-danger" title="Descargar PDF">
             <img src="{{ asset('images/file-pdf-solid.svg') }}" alt="PDF" width="20" style="vertical-align: middle;">
         </a>
+
+        <a href="{{ path('enviar_inventario', {'id': usuarioSeleccionado.id}) }}" class="btn btn-outline-primary me-3" title="Enviar por correo">
+            <img src="{{ asset('images/envelope-solid.svg') }}" alt="Correo" width="20" style="vertical-align: middle;">
+        </a>
+
     </div>
 
     <h3><i>Fondos actuales:</i> {{ usuarioSeleccionado.balance|moneda_formateada }}</h3><br>

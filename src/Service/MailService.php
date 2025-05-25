@@ -19,4 +19,17 @@ class MailService
 
         $this->mailer->send($email);
     }
+
+    public function enviarCorreoHtml(string $to, string $subject, string $htmlContent): void
+    {
+        $email = (new Email())
+            ->from('proyectoygdramar@gmail.com')
+            ->to($to)
+            ->subject($subject)
+            ->html($htmlContent);
+            // attach -> Archivos adjuntos
+
+        $this->mailer->send($email);
+    }
+
 }

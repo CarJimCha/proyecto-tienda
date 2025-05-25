@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enviar inventario{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Enviar inventario de {{ usuario.characterName }}</h1>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="email">Dirección de correo:</label>
+                <input type="email" name="email" id="email" class="form-control" required placeholder="ejemplo@correo.com">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Enviar inventario</button>
+        </form>
+
+        <br><a href="{{ path('app_inventario', { id: usuario.id }) }}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+{% endblock %}

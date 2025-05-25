@@ -43,6 +43,7 @@ security:
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/comprar, roles: ROLE_USER }
         - { path: ^/inventario, roles: ROLE_USER }
+        - { path: ^/enviar-inventario, roles: ROLE_USER }
         - { path: ^/item, roles: ROLE_ADMIN }
         - { path: ^/categoria, roles: ROLE_ADMIN }
         - { path: ^/calidad, roles: ROLE_ADMIN }

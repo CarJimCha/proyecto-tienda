@@ -209,6 +209,7 @@ td.acciones a:hover img {
 
 /* ==================== BOTONES ==================== */
 button, .btn {
+    font-family: 'Cardo', serif;
     background-color: #678d58;
     color: #e0e6dc;
     border: 1px solid #4a5e4d;
