@@ -18,7 +18,7 @@ class CorreoController extends AbstractController
     {
 
         try {
-            $mailService->enviarCorreo('carlosjimcha@gmail.com', 'Correo de prueba', '¡Funciona! Hasta el paso 6');
+            $mailService->enviarCorreo('carlosjimcha@gmail.com', 'Correo de prueba', '¡Funciona!');
         } catch (\Exception $e) {
             dd('Error al enviar correo: ' . $e->getMessage());
         }

@@ -103,7 +103,7 @@ class CompraController extends AbstractController
 
 
     // Ruta para ver los detalles del ítem a comprar
-    #[Route('/comprar/{id}', name: 'comprar', methods: ['GET'])]
+    #[Route('/comprar_item/{id}', name: 'comprar', methods: ['GET'])]
     public function comprar(
         int $id,
         Request $request,
