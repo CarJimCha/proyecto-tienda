@@ -3,8 +3,12 @@ FROM php:8.1-fpm
 
 # Instala dependencias del sistema
 RUN apt-get update && apt-get install -y \
-    git unzip libpq-dev libzip-dev wkhtmltopdf wkhtmltoimage \
-    && docker-php-ext-install pdo pdo_pgsql zip
+    git unzip libpq-dev libzip-dev libxrender1 libfontconfig1 xfonts-75dpi xfonts-base wget \
+    && docker-php-ext-install pdo pdo_pgsql zip \
+    && wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb \
+    && dpkg -i wkhtmltox_0.12.6-1.buster_amd64.deb \
+    && rm wkhtmltox_0.12.6-1.buster_amd64.deb
+
 
 # Instala Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
