@@ -1,45 +1,33 @@
-# Etapa base PHP-FPM
 FROM php:8.1-fpm
 
-# Instala dependencias para PHP y sistema
+# Instala dependencias necesarias y extensiones PHP
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libpq-dev \
     libzip-dev \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    libcurl4-openssl-dev \
-    nginx \
-    supervisor \
-    curl \
-    zip \
-    && docker-php-ext-install pdo pdo_pgsql zip opcache \
+    && docker-php-ext-install pdo pdo_pgsql zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Configura directorio de trabajo
 WORKDIR /var/www/html
 
-# Copia el código fuente al contenedor
+# Copia solo los archivos para composer para aprovechar cache de Docker
+COPY composer.json composer.lock ./
+
+# Instala dependencias PHP con scripts para assets y cache
+RUN composer install --no-dev --optimize-autoloader
+
+# Copia el resto del proyecto
 COPY . .
 
-# Instala dependencias PHP sin dev para producción y optimiza autoload
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+# Establece permisos para cache y logs (ajusta según usuario si es necesario)
+RUN chown -R www-data:www-data var/cache var/log
 
-# Limpia cache Symfony y aplica migraciones
-RUN php bin/console cache:clear --env=prod --no-debug && \
-    php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+# Limpia cache de Symfony y ejecuta migraciones
+RUN php bin/console cache:clear --env=prod --no-debug \
+    && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
-# Copia configuración Nginx y supervisor
-COPY docker/nginx.conf /etc/nginx/sites-available/default
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Exponer el puerto 80 para Render
-EXPOSE 80
-
-# Ejecuta supervisord para levantar PHP-FPM y Nginx
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["php-fpm"]
