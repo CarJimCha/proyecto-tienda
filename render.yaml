@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: tienda-rol
+    env: docker
+    plan: free
+    buildCommand: ""
+    startCommand: "php-fpm"
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: APP_SECRET
+        value: b6f206472e8f756c8908c7b1ce8f2e8d
+      - key: MAILER_DSN
+        value: smtp://proyectoygdramar@gmail.com:uiagrwialntzfwrx@smtp.gmail.com:587?encryption=tls&auth_mode=login
+      - key: WKHTMLTOPDF_PATH
+        value: /usr/local/bin/wkhtmltopdf
+      - key: WKHTMLTOIMAGE_PATH
+        value: /usr/local/bin/wkhtmltoimage
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tienda-db
+          property: connectionString
+
+databases:
+  - name: tienda-db
+    databaseName: tienda
+    user: admin
+    plan: free
+    region: oregon
+    postgresMajorVersion: 14
