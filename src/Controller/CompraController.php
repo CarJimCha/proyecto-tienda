@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\CalidadRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Twig\AppExtension;
 
 class CompraController extends AbstractController
 {
@@ -110,7 +111,8 @@ class CompraController extends AbstractController
         ItemRepository $itemRepository,
         CalidadRepository $calidadRepository,
         EntityManagerInterface $em,
-        Security $security
+        Security $security,
+        AppExtension $appExtension
     ): Response {
         /** @var User|null $usuario */
         $usuario = $security->getUser();
@@ -172,7 +174,9 @@ class CompraController extends AbstractController
                     $em->persist($usuario);
                     $em->flush();
 
-                    $this->addFlash('success', "Has comprado $cantidad unidad(es) de {$item->getNombre()} (calidad {$calidad->getNombre()}) por $precioTotal monedas.");
+                    $precioFormateado = $appExtension->formatearMoneda($precioTotal);
+
+                    $this->addFlash('success', "Has comprado $cantidad unidad(es) de {$item->getNombre()} (calidad {$calidad->getNombre()}) por $precioFormateado.");
                     // Redirige para evitar re-envío al refrescar
                     return $this->redirectToRoute('comprar', ['id' => $id]);
                 }
