@@ -21,17 +21,17 @@ WORKDIR /app
 # 5. Copia los ficheros de definición de dependencias primero
 COPY composer.json composer.lock ./
 
-# 6. Instala las dependencias sin los paquetes de desarrollo
-RUN composer install --no-dev --optimize-autoloader --no-interaction
-
 # 7. Copia el resto de tu aplicación
 COPY . .
+
+# 6. Instala las dependencias sin los paquetes de desarrollo
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # 8. Genera los assets (si usas Webpack Encore)
 # RUN yarn install && yarn encore production
 
 # 9. Ejecuta las migraciones (opcionalmente en tiempo de build)
-RUN php bin/console doctrine:migrations:migrate --no-interaction
+RUN php bin/console doctrine:migrations:migrate --no-interaction --no-script
 
 # 10. Exponer el puerto que utilizará PHP-FPM
 EXPOSE 9000
