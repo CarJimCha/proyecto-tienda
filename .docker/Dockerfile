@@ -34,10 +34,7 @@ RUN composer diagnose
 RUN composer install \
     --no-dev \
     --optimize-autoloader \
-    --no-scripts \
-    --prefer-dist \
     --no-interaction \
-    --ignore-platform-reqs
 
 # Limpiar caché Symfony
 RUN php bin/console cache:clear --env=prod --no-warmup --verbose
