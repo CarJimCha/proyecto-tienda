@@ -29,7 +29,7 @@ class UserType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => false,
-                'first_options' => ['label' => 'Contraseña'],
+                'first_options' => ['label' => 'Nueva contraseña'],
                 'second_options' => ['label' => 'Repite la contraseña'],
             ])
 
