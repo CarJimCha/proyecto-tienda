@@ -1,9 +1,9 @@
 <header>
     {% if app.user %}
-        <span>{{ app.user.characterName }}</span>
         <div class="user-info">
+            <span>{{ app.user.characterName }}</span>
             {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
-                <span>- {{ app.user.balance|moneda_formateada }}</span>
+                - {{ app.user.balance|moneda_formateada }}
             {% endif %}
         </div>
 
