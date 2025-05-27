@@ -29,12 +29,7 @@ WORKDIR /app
 COPY . .
 
 # Instalar dependencias PHP (sin scripts para evitar errores)
-RUN composer diagnose
-
-RUN composer install \
-    --no-dev \
-    --optimize-autoloader \
-    --no-interaction \
+RUN composer install
 
 # Limpiar caché Symfony
 RUN php bin/console cache:clear --env=prod --no-warmup --verbose
