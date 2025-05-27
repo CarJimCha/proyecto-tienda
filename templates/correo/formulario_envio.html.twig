@@ -11,9 +11,9 @@
                 <label for="email">Dirección de correo:</label>
                 <input type="email" name="email" id="email" class="form-control" required placeholder="ejemplo@correo.com">
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Enviar inventario</button>
+            <button type="submit" class="btn">Enviar inventario</button>
         </form>
 
-        <br><a href="{{ path('app_inventario', { id: usuario.id }) }}" class="btn btn-secondary mt-3">Volver</a>
+        <a href="{{ path('app_inventario', { id: usuario.id }) }}" class="btn">Volver</a>
     </div>
 {% endblock %}

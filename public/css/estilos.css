@@ -9,6 +9,7 @@ body {
 
 .title h2, h1 {
     font-family: 'Uncial Antiqua', serif;
+    margin-top: 2rem;
 }
 
 
@@ -60,10 +61,9 @@ header {
 .footer {
     position: fixed;
     bottom: 0;
-    width: 95%;
+    width: 97%;
     text-align: right;
     padding: 0.5rem 0;
-    background-color: #d8e3d0;
 }
 
 
@@ -104,7 +104,7 @@ header {
 /* ==================== TABLAS ==================== */
 table {
     margin: 0 auto;
-    width: 80%;
+    width: 75%;
     border-collapse: collapse;
     text-align: center;
     background-color: #f3f7ef; /* blanco verdoso suave */
@@ -208,28 +208,33 @@ td.acciones a:hover img {
 
 
 /* ==================== BOTONES ==================== */
-button, .btn {
+.btn,
+button.btn,
+a.btn {
     font-family: 'Cardo', serif;
     background-color: #678d58;
-    color: #e0e6dc;
+    color: #e0e6dc !important;
     border: 1px solid #4a5e4d;
     padding: 6px 12px;
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-button:hover, .btn:hover {
-    background-color: #9b7b53;
-    color: #1f2e1e;
-}
-
-.btn {
     display: inline-block;
     min-width: 250px;
     text-align: center;
-    text-decoration: none;
+    text-decoration: none !important;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-top: 1rem;
+}
+
+/* Hover */
+.btn:hover,
+button.btn:hover,
+a.btn:hover {
+    background-color: #9b7b53;
+    color: #1f2e1e !important;
 }
 
 

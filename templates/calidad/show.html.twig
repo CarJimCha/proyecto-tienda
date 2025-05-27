@@ -16,23 +16,23 @@
                 <td>{{ calidad.nombre }}</td>
             </tr>
             <tr>
-                <th>Numero</th>
+                <th>Número</th>
                 <td>{{ calidad.numero }}</td>
             </tr>
             <tr>
-                <th>Multiplicador_precio</th>
+                <th>Multiplicador al Precio</th>
                 <td>{{ calidad.multiplicadorPrecio }}</td>
             </tr>
             <tr>
-                <th>Multiplicador_precio_combate</th>
+                <th>Multiplicador al Precio de Combate</th>
                 <td>{{ calidad.multiplicadorPrecioCombate }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_calidad_index') }}">Volver a la lista</a>
+    <a href="{{ path('app_calidad_index') }}" class="btn">Volver a la lista</a><br>
 
-    <a href="{{ path('app_calidad_edit', {'id': calidad.id}) }}">Editar</a>
+    <a href="{{ path('app_calidad_edit', {'id': calidad.id}) }}" class="btn">Editar</a>
 
     {{ include('calidad/_delete_form.html.twig') }}
 {% endblock %}

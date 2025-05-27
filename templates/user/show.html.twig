@@ -12,7 +12,7 @@
                 <td>{{ user.id }}</td>
             </tr>
             <tr>
-                <th>CharacterName</th>
+                <th>Nombre</th>
                 <td>{{ user.characterName }}</td>
             </tr>
             <tr>
@@ -33,14 +33,14 @@
             </tr>
             <tr>
                 <th>Balance</th>
-                <td>{{ user.balance }}</td>
+                <td>{{ user.balance|moneda_formateada }}</td>
             </tr>
         </tbody>
     </table>
 
-    <p><a href="{{ path('app_user_index') }}">Volver a la lista de Usuarios</a></p>
+    <a href="{{ path('app_user_index') }}" class="btn">Volver a la lista de Usuarios</a><br>
 
-    <p><a href="{{ path('app_user_edit', {'id': user.id}) }}">Editar</a></p>
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn">Editar</a>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}
