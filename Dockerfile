@@ -48,7 +48,7 @@ USER root
 # RUN yarn install && yarn encore production
 
 # 9. Ejecuta las migraciones (opcionalmente en tiempo de build)
-RUN php bin/console doctrine:migrations:migrate --no-interaction --no-script
+# RUN php bin/console doctrine:migrations:migrate --no-interaction --no-script
 
 # 10. Exponer el puerto que utilizará PHP-FPM
 EXPOSE 9000
