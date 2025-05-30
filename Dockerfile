@@ -25,7 +25,7 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
     && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # 6. Instala las dependencias sin los paquetes de desarrollo
-RUN chown -R www-data:www-data /var/www/html/var /var/www/html/vendor
+
 # Antes del composer install
 RUN useradd -m symfony && chown -R symfony:symfony /app
 
@@ -38,7 +38,7 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Si necesitas volver a root:
 USER root
-
+RUN chown -R www-data:www-data /var/www/html/var /var/www/html/vendor
 
 # 8. Genera los assets (si usas Webpack Encore)
 # RUN yarn install && yarn encore production
