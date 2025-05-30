@@ -15,9 +15,12 @@ class CalidadType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('numero')
-            ->add('multiplicador_precio')
-            ->add('multiplicador_precio_combate')
+            ->add('numero', null,
+                ['label' => 'Número'])
+            ->add('multiplicador_precio', null,
+                ['label' => 'Multiplicador al precio'])
+            ->add('multiplicador_precio_combate', null,
+                ['label' => 'Multiplicador al precio de Combate'])
         ;
     }
 

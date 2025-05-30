@@ -5,18 +5,17 @@
 {% block body %}
     <h1>Importar Artículos desde CSV</h1>
 
+    {{ form_start(form, { attr: { class: 'form-estilizado' } }) }}
+    {{ form_row(form.csv_file) }}
+    <button class="btn btn-primary">Subir</button>
+    {{ form_end(form) }}
+
+    <br>
+
     {% for message in app.flashes('success') %}
         <div class="alert alert-success">
             <pre>{{ message }}</pre>
         </div>
     {% endfor %}
-
-
-    <br>
-
-    {{ form_start(form) }}
-    {{ form_row(form.csv_file) }}
-    <button class="btn btn-primary">Subir</button>
-    {{ form_end(form) }}
 
 {% endblock %}

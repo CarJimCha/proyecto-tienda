@@ -16,7 +16,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('characterName')
+            ->add('characterName', null,
+                ['label' => 'Nombre de personaje'])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Usuario' => 'ROLE_USER',
@@ -25,6 +26,7 @@ class UserType extends AbstractType
                 'expanded' => true,  // checkboxes en vez de select
                 'multiple' => true,
                 'label' => 'Roles',
+                'row_attr' => ['class' => 'checkbox-group'],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,

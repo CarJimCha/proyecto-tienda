@@ -1,4 +1,4 @@
-/* ==================== FONTS ==================== */
+/* ==================== BODY ==================== */
 body {
     font-family: 'Cardo', serif;
     padding-top: 20px;
@@ -105,6 +105,16 @@ header {
     transform: scale(1.1);
 }
 
+
+/* ==================== IMAGEN PRINCIPAL ==================== */
+.welcome-image {
+    display: block;
+    margin: 20px auto;
+    max-height: 60vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+}
 
 /* ==================== TABLAS ==================== */
 table {
@@ -243,17 +253,8 @@ a.btn:hover {
 }
 
 
-/* ==================== IMAGEN PRINCIPAL ==================== */
-.welcome-image {
-    display: block;
-    margin: 20px auto;
-    max-width: 40%;
-    height: auto;
-    border-radius: 8px;
-}
-
 /* ==================== FORMULARIOS ==================== */
-form {
+form.form-estilizado {
     max-width: 450px;
     margin: 2rem auto;
     padding: 2rem;
@@ -264,19 +265,19 @@ form {
     text-align: left;
 }
 
-form label {
+form.form-estilizado label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.3rem;
     color: #1f2e1e;
 }
 
-form input[type="password"],
-form input[type="text"],
-form input[type="email"],
-form input[type="number"],
-form select,
-form textarea {
+form.form-estilizado input[type="password"],
+form.form-estilizado input[type="text"],
+form.form-estilizado input[type="email"],
+form.form-estilizado input[type="number"],
+form.form-estilizado select,
+form.form-estilizado textarea {
     width: 100%;
     padding: 0.6rem;
     border: 1px solid #678d58;
@@ -287,25 +288,27 @@ form textarea {
     background-color: #ffffff;
 }
 
-form .form-error-message,
-form .invalid-feedback {
+form.form-estilizado .form-error-message,
+form.form-estilizado .invalid-feedback {
     color: #d9534f;
     font-size: 0.9rem;
     margin-top: -0.5rem;
     margin-bottom: 1rem;
 }
 
-form button.btn {
+form.form-estilizado button.btn {
     width: 100%;
 }
 
-
-/* ==================== EXCEPCIÓN PARA FORMULARIOS SIN ESTILO ==================== */
-form.form-no-estilo {
-    all: unset;
+.form-estilizado .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-form.form-no-estilo * {
-    all: unset;
-    display: revert;
+.form-estilizado .checkbox-group div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
+
