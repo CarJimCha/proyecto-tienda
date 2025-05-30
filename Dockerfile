@@ -36,6 +36,7 @@ RUN useradd -m symfony && chown -R symfony:symfony /app
 USER symfony
 
 # Ejecuta Composer sin plugins bloqueados
+ENV APP_ENV=prod
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Si necesitas volver a root:
