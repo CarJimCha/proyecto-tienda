@@ -157,7 +157,7 @@ class CompraController extends AbstractController
                 $precioTotal = $item->getPrecio() * $cantidad * $multiplicador;
 
                 if ($usuario->getBalance() < $precioTotal) {
-                    $this->addFlash('error', 'No tienes suficiente saldo para esta comprar.');
+                    $this->addFlash('error', 'Error: No tienes suficiente dinero para esta compra.');
                 } else {
                     $transaccion = new Transaction();
                     $transaccion->setUser($usuario);

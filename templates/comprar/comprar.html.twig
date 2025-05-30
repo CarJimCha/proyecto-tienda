@@ -12,7 +12,7 @@
         <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
 
-    <p>Eres {{ app.user.userIdentifier }} y tienes {{ app.user.getFormattedBalance() }} monedas.</p>
+    <p>Buenas {{ app.user.userIdentifier }}, tienes {{ app.user.getFormattedBalance() }} para comprar lo que quieras.</p>
     <p><strong>Precio base:</strong> {{ item.getFormattedPrecio }}</p>
     <p><strong>Categoría:</strong> {{ item.categoria.nombre }}</p>
 
@@ -45,5 +45,5 @@
         <button type="submit">Comprar</button>
     </form>
 
-    <p><a href="{{ path('app_compra') }}">Volver al catálogo</a></p>
+    <a href="{{ path('app_compra') }}" class="btn">Volver al catálogo</a>
 {% endblock %}
