@@ -4,7 +4,7 @@ services:
     env: docker
     plan: free
     buildCommand: ""
-    startCommand: "php-fpm"
+    startCommand: ""
     envVars:
       - key: APP_ENV
         value: prod
@@ -13,18 +13,17 @@ services:
       - key: MAILER_DSN
         value: smtp://proyectoygdramar@gmail.com:uiagrwialntzfwrx@smtp.gmail.com:587?encryption=tls&auth_mode=login
       - key: WKHTMLTOPDF_PATH
-        value: /usr/local/bin/wkhtmltopdf
+        value: /usr/bin/wkhtmltopdf
       - key: WKHTMLTOIMAGE_PATH
-        value: /usr/local/bin/wkhtmltoimage
+        value: /usr/bin/wkhtmltoimage
       - key: DATABASE_URL
-        fromDatabase:
-          name: tienda-db
-          property: connectionString
+        value: "pgsql://bd_proyecto_vjoh_user:naewqmnuHbFMqUs6QPJR3q2ss6prMZeC@dpg-d0qqaqqdbo4c73cbjkc0-a:5432/bd_proyecto_vjoh"
 
 databases:
-  - name: tienda-db
-    databaseName: tienda
-    user: admin
+  - name: bd_proyecto_vjoh
+    databaseName: bd_proyecto_vjoh
+    user: bd_proyecto_vjoh_user
+    password: naewqmnuHbFMqUs6QPJR3q2ss6prMZeC
     plan: free
     region: oregon
     postgresMajorVersion: 14

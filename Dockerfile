@@ -1,15 +1,10 @@
- # 1. Base: PHP 8.1 con FPM
-FROM php:8.1-fpm
+ # 1. Base: PHP 8.1 con Apache
+FROM php:8.1-apache
 
 # 2. Instala herramientas y extensiones necesarias
 RUN apt-get update && apt-get install -y \
-    git \
-    zip \
-    unzip \
-    libicu-dev \
-    libonig-dev \
-    libzip-dev \
-    libpq-dev \
+    git zip unzip libicu-dev libonig-dev libzip-dev libpq-dev \
+    wkhtmltopdf xfonts-75dpi xfonts-base \
     && docker-php-ext-install intl pdo pdo_pgsql zip opcache \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # 4. Directorio de trabajo
-WORKDIR /app
+WORKDIR /var/www/html
 
 # 5. Copia los ficheros de definición de dependencias primero
 COPY composer.json composer.lock ./
@@ -30,6 +25,7 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
     && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # 6. Instala las dependencias sin los paquetes de desarrollo
+RUN chown -R www-data:www-data /var/www/html/var /var/www/html/vendor
 # Antes del composer install
 RUN useradd -m symfony && chown -R symfony:symfony /app
 
@@ -51,7 +47,7 @@ USER root
 # RUN php bin/console doctrine:migrations:migrate --no-interaction --no-script
 
 # 10. Exponer el puerto que utilizará PHP-FPM
-EXPOSE 9000
+EXPOSE 80
 
 # 11. Comando por defecto al iniciar el contenedor
-CMD ["php-fpm"]
+# CMD ["apache2-foreground"]
