@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     libonig-dev \
     libzip-dev \
-    && docker-php-ext-install intl pdo pdo_mysql zip opcache \
+    libpq-dev \
+    && docker-php-ext-install intl pdo pdo_pgsql zip opcache \
     && rm -rf /var/lib/apt/lists/*
 
 # 3. Instala Composer (gestor de dependencias de PHP)
