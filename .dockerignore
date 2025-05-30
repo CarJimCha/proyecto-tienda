@@ -1,0 +1,8 @@
+.git
+node_modules
+var/*
+!var/.gitkeep
+vendor/*
+.env.local
+.env.dev
+tests
