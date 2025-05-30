@@ -24,6 +24,11 @@ COPY composer.json composer.lock ./
 # 7. Copia el resto de tu aplicación
 COPY . .
 
+# Instalar Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash \
+    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+
+
 # 6. Instala las dependencias sin los paquetes de desarrollo
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
