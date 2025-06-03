@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: tienda-rol
+    name: proyecto-ygdramar
     env: docker
     plan: free
     buildCommand: ""
@@ -8,14 +8,12 @@ services:
     envVars:
       - key: APP_ENV
         value: prod
+      - key: APP_DEBUG
+        value: "0"
       - key: APP_SECRET
         value: b6f206472e8f756c8908c7b1ce8f2e8d
       - key: MAILER_DSN
         value: smtp://proyectoygdramar@gmail.com:uiagrwialntzfwrx@smtp.gmail.com:587?encryption=tls&auth_mode=login
-      - key: WKHTMLTOPDF_PATH
-        value: /usr/bin/wkhtmltopdf
-      - key: WKHTMLTOIMAGE_PATH
-        value: /usr/bin/wkhtmltoimage
       - key: DATABASE_URL
         value: "pgsql://bd_proyecto_vjoh_user:naewqmnuHbFMqUs6QPJR3q2ss6prMZeC@dpg-d0qqaqqdbo4c73cbjkc0-a:5432/bd_proyecto_vjoh"
 
@@ -25,5 +23,5 @@ databases:
     user: bd_proyecto_vjoh_user
     password: naewqmnuHbFMqUs6QPJR3q2ss6prMZeC
     plan: free
-    region: oregon
+    region: frankfurt
     postgresMajorVersion: 14
