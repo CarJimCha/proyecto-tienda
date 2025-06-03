@@ -80,14 +80,14 @@
     },
     "post-install-cmd": [
       "@auto-scripts",
-      "php bin/console cache:clear --env=prod --no-debug",
-      "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration"
+      "php bin/console cache:clear --env=prod --no-debug"
     ],
     "post-update-cmd": [
       "@auto-scripts"
-    ]
+    ],
+    "auto-migrate": "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration"
   },
-   "conflict": {
+  "conflict": {
         "symfony/symfony": "*"
     },
     "extra": {
