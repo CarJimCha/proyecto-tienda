@@ -25,6 +25,9 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV APP_ENV=prod
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
+# Solución al error de importmap
+RUN php bin/console importmap:install
+
 # 8. Asigna permisos a Apache
 RUN chown -R www-data:www-data /var/www/html
 
