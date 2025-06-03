@@ -22,6 +22,7 @@ COPY . .
 
 # 6. Permitir Composer como root y luego instalar dependencias
 ENV COMPOSER_ALLOW_SUPERUSER=1
+APP_ENV=prod
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # 8. Asigna permisos a Apache
