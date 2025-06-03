@@ -38,6 +38,6 @@ EXPOSE 80
 # 11. Comando por defecto
 # Configura Apache para Symfony
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf \
-    && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+    && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 CMD ["apache2-foreground"]
