@@ -17,7 +17,8 @@ WORKDIR /var/www/html
 # 5. Copia ficheros composer
 COPY composer.json composer.lock ./
 
-# 6. Instala dependencias
+# 6. Permitir Composer como root y luego instalar dependencias
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # 7. Copia el resto del código
