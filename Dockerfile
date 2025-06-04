@@ -25,9 +25,6 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV APP_ENV=prod
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# ✅ Ejecuta las migraciones automáticas
-RUN php bin/console doctrine:migrations:migrate --no-interaction || true
-
 # Solución al error de importmap
 RUN php bin/console importmap:install
 
