@@ -36,6 +36,7 @@ class RegistrationController extends AbstractController
             $balance = $form->get('balance')->getData();
             $user->setBalance($balance ?? 0);
 
+            // Si no hay usuarios, el primero será admin
             $existingUsers = $userRepository->count([]);
             if ($existingUsers === 0) {
                 $user->setRoles(['ROLE_ADMIN']);
