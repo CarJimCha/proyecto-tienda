@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class MigracionController extends AbstractController
 {
     #[Route('/migrar', name: 'migrar_bd')]
-    #[IsGranted('ROLE_ADMIN')]
+    # #[IsGranted('ROLE_ADMIN')]
     public function migrar(#[Autowire(service: 'doctrine.migrations.dependency_factory')] DependencyFactory $dependencyFactory): Response
     {
         try {

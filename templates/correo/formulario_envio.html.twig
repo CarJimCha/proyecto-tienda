@@ -6,6 +6,18 @@
     <div class="container mt-4">
         <h1>Enviar inventario de {{ usuario.characterName }}</h1>
 
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                <p>{{ message|raw }}</p>
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                <p>{{ message|raw }}</p>
+            </div>
+        {% endfor %}
+
         <form method="post" class="form-estilizado">
             <div class="form-group">
                 <label for="email">Dirección de correo:</label>
@@ -17,3 +29,4 @@
         <a href="{{ path('app_inventario', { id: usuario.id }) }}" class="btn">Volver</a>
     </div>
 {% endblock %}
+
