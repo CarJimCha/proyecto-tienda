@@ -3,7 +3,7 @@
 {% block title %}{{ item.nombre }}{% endblock %}
 
 {% block body %}
-    <h1>Artículo</h1>
+    <h1>Mostrar Artículo</h1>
 
     <table class="table">
         <tbody>
@@ -30,9 +30,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_item_index') }}">Volver a la lista</a>
+    <a href="{{ path('app_item_index') }}" class="btn">Volver a la lista</a>
 
-    <a href="{{ path('app_item_edit', {'id': item.id}) }}">Editar</a>
+    <br><a href="{{ path('app_item_edit', {'id': item.id}) }}" class="btn">Editar</a>
 
     {{ include('item/_delete_form.html.twig') }}
 {% endblock %}
