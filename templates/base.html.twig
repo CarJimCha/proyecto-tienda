@@ -9,21 +9,21 @@
         <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
         {% block stylesheets %}
         {% endblock %}
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
     </head>
     <body>
-        {% if app.user %}
-            {% include 'componentes/_header.html.twig' %}
-        {% endif %}
+        <div>
+            {% if app.user %}
+                {% include 'componentes/_header.html.twig' %}
+            {% endif %}
+        </div>
 
-        {% block body %}{% endblock %}
+        <div>{% block body %}{% endblock %}</div>
 
-        {%  if app.user %}
-            {% include 'componentes/_footer.html.twig' %}
-        {% endif %}
+        <div>
+            {%  if app.user %}
+                {% include 'componentes/_footer.html.twig' %}
+            {% endif %}
+        </div>
 
     </body>
 </html>

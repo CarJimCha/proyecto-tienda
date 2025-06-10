@@ -3,11 +3,9 @@
 {% block title %}Editar Artículo{% endblock %}
 
 {% block body %}
-    <h1>Editar Item</h1>
+    <h1>Editar Artículo</h1>
 
     {{ include('item/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    {{ include('item/_delete_form.html.twig') }}
-
-    <br><a href="{{ path('app_item_index') }}" class="btn">Volver a la lista</a>
+    <a href="{{ path('app_item_index') }}" class="btn">Volver a la lista</a>
 {% endblock %}

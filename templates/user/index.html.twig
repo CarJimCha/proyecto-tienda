@@ -21,7 +21,7 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.characterName }}</td>
-                <td>{{ user.balance }}</td>
+                <td>{{ user.balance|moneda_formateada }}</td>
 
                 <td><input type="checkbox" {% if 'ROLE_USER' in user.roles %}checked{% endif %} disabled></td>
                 <td><input type="checkbox" {% if 'ROLE_ADMIN' in user.roles %}checked{% endif %} disabled></td>

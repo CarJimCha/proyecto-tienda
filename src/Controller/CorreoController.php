@@ -18,7 +18,7 @@ class CorreoController extends AbstractController
     {
 
         try {
-            $mailService->enviarCorreo('carlosjimcha@gmail.com', 'Correo de prueba', '¡Funciona! Hasta el paso 6');
+            $mailService->enviarCorreo('carlosjimcha@gmail.com', 'Correo de prueba', '¡Funciona!');
         } catch (\Exception $e) {
             dd('Error al enviar correo: ' . $e->getMessage());
         }
@@ -45,12 +45,12 @@ class CorreoController extends AbstractController
             $email = $request->request->get('email');
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return new Response('Dirección de correo no válida.', 400);
+                $this->addFlash('danger', 'Dirección de correo no válida.');
+                return $this->redirectToRoute('enviar_inventario', ['id' => $id]);
             }
 
             $inventario = $transactionRepository->getGroupedInventoryByUser($usuario);
 
-            // Renderizar plantilla HTML
             $html = $twig->render('pdf/inventario.html.twig', [
                 'usuarioSeleccionado' => $usuario,
                 'inventario' => $inventario,
@@ -62,18 +62,20 @@ class CorreoController extends AbstractController
                     'Inventario de ' . $usuario->getCharacterName(),
                     $html
                 );
+
+                $this->addFlash('success', "Inventario de <strong>{$usuario->getCharacterName()}</strong> enviado correctamente a <strong>{$email}</strong>.");
             } catch (\Exception $e) {
-                return new Response('Error al enviar el correo: ' . $e->getMessage());
+                $this->addFlash('danger', 'Error al enviar el correo: ' . $e->getMessage());
             }
 
-            return new Response('Inventario enviado a ' . htmlspecialchars($email) . '.');
+            return $this->redirectToRoute('enviar_inventario', ['id' => $id]);
         }
 
-        // Mostrar formulario
         return $this->render('correo/formulario_envio.html.twig', [
             'usuario' => $usuario,
         ]);
     }
+
 
 
 }

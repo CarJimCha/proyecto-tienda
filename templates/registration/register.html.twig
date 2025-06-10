@@ -10,7 +10,7 @@
 
         {{ form_errors(registrationForm) }}
 
-        {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm, { attr: { class: 'form-estilizado' } }) }}
         {{ form_row(registrationForm.characterName,  { label: 'Nombre'}) }}
         {{ form_row(registrationForm.plainPassword, { label: 'Contraseña'}) }}
         {{ form_row(registrationForm.balance, {label: 'Dinero inicial'}) }}
@@ -19,7 +19,6 @@
         {{ form_end(registrationForm) }}
     </div>
 
-    <br>
     <a href="{{ path('index') }}" class="btn btn-primary">Página de inicio</a>
 
 {% endblock %}

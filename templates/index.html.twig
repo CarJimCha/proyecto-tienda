@@ -4,15 +4,16 @@
 
 {% block body %}
 
-    <h1>Gestor de Inventario de Rol</h1>
+    <h1>Proyecto: Ygdramar</h1>
 
     <h2>¡Bienvenido{% if app.user %} {{ app.user.characterName }}{% endif %}!</h2>
 
-    <img src="{{ asset('images/home-img.jpg') }}" alt="Imagen de bienvenida" class="welcome-image">
+    <img src="{{ asset('images/home-img-2.jpg') }}" alt="Imagen de bienvenida" class="welcome-image">
 
     {% if app.user %}
         {# Usuario logueado #}
-        <a href="{{ path('app_logout') }}" class="btn btn-danger">Cerrar Sesión</a>
+        <a href="{{ path('app_user_change_password') }}" class="btn">Cambiar Contraseña</a>
+        <a href="{{ path('app_logout') }}" class="btn">Cerrar Sesión</a>
         <br><br>
 
         {# NO LO VEO NECESARIO CON LA BARRA DE NAVEGACIÓN, PERO LO MANTENGO POR SI CAMBIO DE IDEA

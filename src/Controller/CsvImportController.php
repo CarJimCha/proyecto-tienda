@@ -34,8 +34,6 @@ class CsvImportController extends AbstractController
                 $updatedCount = 0;
                 $totalCount = 0;
 
-                // ... (resto del código igual)
-
                 while (($data = fgetcsv($handle, 1000, ';')) !== false) {
                     if ($firstLine) {
                         $firstLine = false;

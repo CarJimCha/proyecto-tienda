@@ -1,14 +1,16 @@
-/* ==================== FONTS ==================== */
+/* ==================== BODY ==================== */
 body {
     font-family: 'Cardo', serif;
     padding-top: 20px;
     text-align: center;
     background-color: #d8e3d0; /* verde claro */
     color: #1f2e1e; /* texto más oscuro para contraste */
+    padding-bottom: 20px;
 }
 
 .title h2, h1 {
     font-family: 'Uncial Antiqua', serif;
+    margin-top: 2rem;
 }
 
 
@@ -49,6 +51,10 @@ header {
     border-radius: 4px;
     font-weight: 600;
     transition: background-color 0.3s;
+    white-space: normal;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    display: inline-block;
 }
 
 .nav-list a:hover {
@@ -60,10 +66,9 @@ header {
 .footer {
     position: fixed;
     bottom: 0;
-    width: 95%;
+    width: 97%;
     text-align: right;
     padding: 0.5rem 0;
-    background-color: #d8e3d0;
 }
 
 
@@ -101,10 +106,20 @@ header {
 }
 
 
+/* ==================== IMAGEN PRINCIPAL ==================== */
+.welcome-image {
+    display: block;
+    margin: 20px auto;
+    max-height: 60vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+}
+
 /* ==================== TABLAS ==================== */
 table {
     margin: 0 auto;
-    width: 80%;
+    width: 75%;
     border-collapse: collapse;
     text-align: center;
     background-color: #f3f7ef; /* blanco verdoso suave */
@@ -208,36 +223,92 @@ td.acciones a:hover img {
 
 
 /* ==================== BOTONES ==================== */
-button, .btn {
+.btn,
+button.btn,
+a.btn {
     font-family: 'Cardo', serif;
     background-color: #678d58;
-    color: #e0e6dc;
+    color: #e0e6dc !important;
     border: 1px solid #4a5e4d;
     padding: 6px 12px;
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-button:hover, .btn:hover {
-    background-color: #9b7b53;
-    color: #1f2e1e;
-}
-
-.btn {
     display: inline-block;
     min-width: 250px;
     text-align: center;
-    text-decoration: none;
+    text-decoration: none !important;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-top: 1rem;
+}
+
+/* Hover */
+.btn:hover,
+button.btn:hover,
+a.btn:hover {
+    background-color: #9b7b53;
+    color: #1f2e1e !important;
 }
 
 
-/* ==================== IMAGEN PRINCIPAL ==================== */
-.welcome-image {
-    display: block;
-    margin: 20px auto;
-    max-width: 40%;
-    height: auto;
+/* ==================== FORMULARIOS ==================== */
+form.form-estilizado {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f3f7ef;
+    border: 1px solid #4a5e4d;
     border-radius: 8px;
+    box-shadow: 0 0 8px rgba(31, 46, 30, 0.1);
+    text-align: left;
 }
+
+form.form-estilizado label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    color: #1f2e1e;
+}
+
+form.form-estilizado input[type="password"],
+form.form-estilizado input[type="text"],
+form.form-estilizado input[type="email"],
+form.form-estilizado input[type="number"],
+form.form-estilizado select,
+form.form-estilizado textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #678d58;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Cardo', serif;
+    margin-bottom: 1rem;
+    background-color: #ffffff;
+}
+
+form.form-estilizado .form-error-message,
+form.form-estilizado .invalid-feedback {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+form.form-estilizado button.btn {
+    width: 100%;
+}
+
+.form-estilizado .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-estilizado .checkbox-group div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+

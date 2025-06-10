@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: proyecto-ygdramar
+    env: docker
+    plan: free
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: APP_DEBUG
+        value: "0"
+      - key: APP_SECRET
+        value: b6f206472e8f756c8908c7b1ce8f2e8d
+      - key: MAILER_DSN
+        value: smtp://proyectoygdramar@gmail.com:uiagrwialntzfwrx@smtp.gmail.com:587?encryption=tls&auth_mode=login
+      - key: DATABASE_URL
+        value: "pgsql://bd_proyecto_vjoh_user:naewqmnuHbFMqUs6QPJR3q2ss6prMZeC@dpg-d0qqaqqdbo4c73cbjkc0-a:5432/bd_proyecto_vjoh"
+
+databases:
+  - name: bd_proyecto_vjoh
+    databaseName: bd_proyecto_vjoh
+    user: bd_proyecto_vjoh_user
+    password: naewqmnuHbFMqUs6QPJR3q2ss6prMZeC
+    plan: free
+    region: frankfurt
+    postgresMajorVersion: 14

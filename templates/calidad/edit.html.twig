@@ -7,7 +7,5 @@
 
     {{ include('calidad/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    {{ include('calidad/_delete_form.html.twig') }}
-
-    <br><a href="{{ path('app_calidad_index') }}" class="btn btn-primary">Volver a la lista</a>
+    <a href="{{ path('app_calidad_index') }}" class="btn btn-primary">Volver a la lista</a>
 {% endblock %}

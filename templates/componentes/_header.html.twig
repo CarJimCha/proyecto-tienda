@@ -3,7 +3,7 @@
         <div class="user-info">
             <span>{{ app.user.characterName }}</span>
             {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
-                <span>- {{ app.user.balance|moneda_formateada }}</span>
+                - {{ app.user.balance|moneda_formateada }}
             {% endif %}
         </div>
 
@@ -14,6 +14,7 @@
                 {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_inventario') }}">Inventario</a></li>
                     <li><a href="{{ path('app_compra') }}">Compra de Artículos</a></li>
+                    <li><a href="{{ path('app_user_change_password') }}">Cambiar Contraseña</a></li>
                 {% endif %}
 
                 {% if is_granted('ROLE_ADMIN') %}
